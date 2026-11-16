@@ -1,6 +1,6 @@
 # WinDevice Inspector
 
-**WinDevice Inspector** is an open-source Windows desktop application for comprehensive device information collection, Windows system-state inspection, and AI-ready diagnostic task generation.
+**WinDevice Inspector** is a Windows desktop application for comprehensive device information collection, Windows system-state inspection, and AI-ready diagnostic task generation.
 
 The first release focuses on collecting and organizing evidence—not live hardware monitoring, online AI diagnosis, or automatic repair.
 
@@ -27,15 +27,16 @@ The first release focuses on collecting and organizing evidence—not live hardw
 
 ## Project status
 
-<badge>Planning / repository bootstrap</badge>
+**Planning / repository bootstrap**
 
-The repository is being initialized. No production application code has been accepted yet.
+The repository foundation and first product documents have been created. Production application code has not started.
 
 See:
 - [Product requirements](docs/PRODUCT_REQUIREMENTS.md)
 - [Technical architecture](docs/TECHNICAL_ARCHITECTURE.md)
 - [Roadmap](docs/ROADMAP.md)
 - [AI collaboration workflow](docs/AI_COLLABORATION.md)
+- [Project status](docs/PROJECT_STATUS.md)
 - [Delivery inbox](DELIVERY/INBOX/README.md)
 
 ## Collaboration model
