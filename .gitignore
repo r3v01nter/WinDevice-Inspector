@@ -1,0 +1,28 @@
+# .NET build outputs
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+
+# Test and coverage outputs
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Local application data and scan exports
+.local/
+.local-data/
+scan-exports/
+*.scan.json
+*.diagnostic-report.html
+
+# Temporary delivery extraction
+*.tmp
+*.log
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
