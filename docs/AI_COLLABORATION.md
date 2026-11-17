@@ -1,84 +1,104 @@
 # AI Collaboration and Delivery Workflow
 
-## 1. Roles
+## 1. Roles and accountability
 
 ### Project owner
 - Makes final product and scope decisions.
-- Uses Gemini Pro desktop task mode (model selection may change) to implement scoped tasks.
-- Manually places Gemini's complete delivery package in `DELIVERY/INBOX/`.
-- Reviews task briefs and decides whether to accept proposed scope changes.
+- Provides access to the public GitHub repository URL and the Windows development/test environment.
+- Transfers Gemini deliverables and test evidence.
+- Decides whether to accept the final result.
 
-### ChatGPT — project coordinator
-- Owns product planning, technical direction, architecture decisions, task decomposition, and acceptance criteria.
-- Writes one self-contained task brief for each implementation assignment.
-- Reviews the returned code, tests, documentation, and completion receipt.
-- Identifies defects and requests revisions.
-- Organizes accepted deliverables into the repository and updates project status.
-- Does not assume a task is complete merely because the implementation assistant says so.
+### ChatGPT — technical lead and acceptance reviewer
+- Owns product planning, technical direction, architecture, task decomposition, and acceptance criteria.
+- Guides Gemini before and during implementation when design or technical problems arise.
+- Reviews code, data contracts, security/privacy behavior, tests, and documentation.
+- Independently checks whether claimed test/build evidence is credible and sufficient.
+- Requests corrections and provides concrete implementation direction when defects or difficult problems are found.
+- Does not accept work solely on the basis of Gemini's completion claim.
+- Coordinates integration and repository organization after acceptance.
 
-### Gemini — implementation assistant
-- Receives the task brief from the owner.
-- Works only within the stated scope and returns a complete delivery package plus a completion receipt.
-- Must not independently push to, commit to, or otherwise operate the GitHub repository.
-- Must report files changed, commands/tests run, results, limitations, and known issues.
-- Must not silently broaden scope or replace architectural decisions.
+### Gemini — primary implementation producer
+- Reads the public repository and the exact task brief before implementation.
+- Performs the main code production and implementation work.
+- Returns complete files, tests, documentation, and a truthful completion receipt.
+- May propose improvements, but must identify scope changes and wait for approval before applying them.
+- Must not claim local build/test success unless it actually ran those commands in a suitable environment and can provide evidence.
 
-## 2. Standard task cycle
+## 2. Public repository access and execution limits
 
-1. Owner and ChatGPT discuss the next milestone and agree on scope.
-2. ChatGPT writes a task brief with context, exact deliverables, constraints, and acceptance criteria.
-3. Owner copies the brief into Gemini's task mode.
-4. Gemini implements and returns all changed/new files plus a completion receipt.
-5. Owner places the unmodified delivery package in `DELIVERY/INBOX/`.
-6. ChatGPT inspects every delivered file, checks consistency and tests, and reports findings.
-7. If changes are required, ChatGPT issues a revision task brief; the package remains pending until resolved.
-8. If accepted, ChatGPT plans or performs repository organization and updates the task ledger.
-9. ChatGPT removes processed delivery artifacts from the inbox while preserving the inbox directory and its README placeholder.
+The project repository is public, so Gemini may read its current contents through the supplied GitHub URL. Every task brief must provide:
+- Repository URL.
+- Exact documents and existing source paths to read first.
+- Target branch/ref where relevant.
 
-## 3. Required task brief contents
+Public read access does **not** prove that Gemini can push commits, edit the repository, run commands on the owner's PC, or build/test a Windows desktop application. Unless the current tool/session explicitly demonstrates those capabilities:
+- Treat Gemini as a code producer returning a complete delivery package.
+- Do not assume it can run the Windows WPF application.
+- Mark unrun builds/tests as **Not run**, not Passed.
+- The owner or a verified Windows environment must run required commands; ChatGPT reviews the evidence and, where possible, independently checks the implementation.
+
+## 3. Standard collaborative task cycle
+
+1. ChatGPT inspects the latest repository state and defines a bounded task.
+2. ChatGPT publishes a task brief with context, exact paths, constraints, acceptance criteria, and verification commands.
+3. Gemini reads the public repository and referenced files before writing code.
+4. Gemini implements the task as the primary producer. ChatGPT provides technical direction and clarifies difficult design questions as needed.
+5. Avoid concurrent edits to the same files or branch. Gemini returns a delivery package; ChatGPT reviews and then integrates accepted changes. If direct GitHub editing is later verified, use separate branches/PRs and review before merge.
+6. Owner places the complete delivery under `DELIVERY/INBOX/TASK-XXXX/`.
+7. ChatGPT inspects every delivered file, compares it with the task brief, checks tests/build evidence, and reports findings.
+8. If changes are required, ChatGPT gives Gemini a precise revision list and acceptance conditions.
+9. Only after all blocking findings are resolved is the delivery accepted and organized into canonical source/docs/tests paths.
+10. Update project status and archive the original handoff when useful.
+
+## 4. Required task brief contents
 
 - Task ID and title.
+- Repository URL and branch/ref.
+- Exact documents and source files Gemini must read.
 - Current project state and relevant architecture decisions.
 - Objective and non-goals.
 - Exact allowed files/directories to create or modify.
 - Required implementation behavior.
-- Constraints (read-only collection, no silent elevation, no online upload, etc.).
+- User-control, privacy, and security constraints.
 - Acceptance criteria.
 - Required tests and commands.
 - Required delivery package structure.
 - Required completion receipt.
+- Explicit distinction between tests actually run and tests not run.
 
 See [task brief template](templates/TASK_BRIEF_TEMPLATE.md).
 
-## 4. Required completion receipt
+## 5. Required completion receipt
 
 Gemini must return:
 - Task ID and outcome.
 - Summary of implementation.
 - Complete list of files created/modified/deleted.
-- Key design decisions.
-- Commands executed and their exit codes.
+- Key design decisions and dependencies.
+- Commands executed, environment details, and exit codes.
 - Tests run and full pass/fail summary.
-- Build result.
+- Build result, including whether it ran on Windows.
 - Known limitations and unverified behavior.
-- Any deviations from the task brief, with reasons.
+- Deviations from the task brief, with reasons.
 - Exact contents of the delivery package.
 
 See [completion receipt template](templates/COMPLETION_RECEIPT_TEMPLATE.md).
 
-## 5. Delivery inbox rules
+## 6. Delivery inbox rules
 
-- The only routine drop location is `DELIVERY/INBOX/`.
+- The routine drop location is `DELIVERY/INBOX/`.
 - Keep `DELIVERY/INBOX/README.md` permanently; Git does not track truly empty directories.
-- Put each task in its own subfolder, e.g. `TASK-0001/`, or use a ZIP plus receipt when binary files are needed.
-- Do not mix unrelated tasks in one delivery package.
-- ChatGPT reviews before files are moved into source/docs/tests.
-- Accepted packages are archived under `DELIVERY/ARCHIVE/TASK-XXXX/` when retaining the original handoff is useful; otherwise the canonical accepted files are organized into their proper locations and the inbox is cleared.
+- Put each task in its own subfolder, e.g. `TASK-0001/`.
+- Include complete source/project files, tests, docs, and receipt. Do not return snippets or patches alone.
+- ChatGPT reviews before files are moved into canonical source/docs/tests paths.
+- Accepted packages may be archived under `DELIVERY/ARCHIVE/TASK-XXXX/`.
 - Never delete the inbox README or the inbox directory itself.
-- Do not place credentials, access tokens, browser profiles, private keys, or unrelated personal files in the repository.
+- Do not place credentials, access tokens, browser profiles, private keys, real scan exports, or unrelated personal files in the repository.
 
-## 6. Change control
+## 7. Change control and review standard
 
 - Architecture changes require explicit discussion and a decision record.
-- Gemini must not add dependencies, change target frameworks, alter public data schemas, or broaden permissions without calling it out in the receipt.
-- No code is considered accepted until reviewed against the task's acceptance criteria.
+- Do not add dependencies, change target frameworks, alter public data schemas, or broaden permissions without reporting the reason and receiving approval.
+- Review includes correctness, exception handling, privacy/user consent, process lifecycle, data integrity, test quality, and build reproducibility.
+- A successful compile alone is not acceptance. All task acceptance criteria must be checked.
+- If ChatGPT cannot verify a claim, it must label it unverified rather than implying it passed.
