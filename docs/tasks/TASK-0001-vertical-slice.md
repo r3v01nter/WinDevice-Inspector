@@ -11,6 +11,10 @@
 
 The repository is public. Read the current contents of these files before implementation:
 - `README.md`
+- `CONTRIBUTING.md`
+- `docs/README.md`
+- `docs/PROJECT_OVERVIEW.md`
+- `docs/REPOSITORY_STRUCTURE.md`
 - `docs/PRODUCT_REQUIREMENTS.md`
 - `docs/TECHNICAL_ARCHITECTURE.md`
 - `docs/ROADMAP.md`
