@@ -4,7 +4,7 @@
 - Repository: https://github.com/r3v01nter/WinDevice-Inspector
 - Default branch: main
 - Current stage: Repository foundation and project-management workflow established; first software implementation task remains pending production.
-- Current management item: WDI-AUDIT-0001 R2 — submitted and awaiting independent review.
+- Current management item: WDI-AUDIT-0001 R3 — R2 reviewed; targeted revisions requested.
 - Application implementation: Not started / no application code accepted.
 - Current software milestone: Phase 1 — First runnable vertical slice.
 
@@ -35,7 +35,7 @@ For the live task state, use the Chinese [任务中心](任务中心/README.md),
 | Task brief and completion receipt templates | Present |
 | Chinese task center | Established with current-task pointer and indexes |
 | Review and issue directories | Established with README guidance and templates |
-| WDI-AUDIT-0001 | R1 archived with rework required; R2 submitted and awaiting review |
+| WDI-AUDIT-0001 | R1 archived; R2 archived with rework required; R3 requested |
 | TASK-0001 | Task brief exists; pending production |
 | Source/test directories | Placement guidance only; implementation pending |
 
@@ -49,9 +49,9 @@ For the live task state, use the Chinese [任务中心](任务中心/README.md),
 
 ## Immediate next steps
 
-1. Independently review the six WDI-AUDIT-0001 R2 files currently in `DELIVERY/INBOX/待交付/`.
-2. Record the review result and any remaining rework; do not treat the submitted proposal as an approved project decision.
-3. After the owner confirms the management baseline, decide whether to hand TASK-0001 to Gemini for implementation.
+1. Gemini revises the six WDI-AUDIT-0001 documents for R3 using the [R2 independent review](../DELIVERY/ARCHIVE/WDI-AUDIT-0001/R2/REVIEW_REPORT.md).
+2. ChatGPT independently reviews R3 and updates the task/review indexes.
+3. After the management baseline is stable, decide whether to hand TASK-0001 to Gemini for implementation.
 4. The owner supplies the current development-environment verification report before any claim that the local .NET/WPF environment is ready.
 5. Build and runtime verification must be performed on Windows 11 x64. Do not mark these as passed until actual evidence is supplied.
 
