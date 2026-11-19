@@ -1,18 +1,33 @@
-# Delivery Inbox — Drop files here
+# Delivery Inbox
 
-This folder is the single handoff location for implementation packages returned by Gemini.
+## 唯一交付入口
 
-## How to submit
+请将 Gemini 返回的**完整交付包**放入本目录下的 `待交付/` 文件夹。
 
-1. Create a subfolder named after the task, e.g. `TASK-0001/`.
-2. Put the complete source files, project files, tests, documentation, and completion receipt in that subfolder.
-3. Do not upload credentials, tokens, browser data, private keys, or unrelated personal files.
-4. Tell ChatGPT that the delivery is ready for review.
+```
+DELIVERY/
+└── INBOX/
+    ├── README.md
+    └── 待交付/
+        └── README.md
+```
 
-## Processing
+不要直接在 `INBOX/` 根目录创建任务目录，也不要把零散文件分散到其他位置。每次交付应尽量包含任务要求的全部源文件、项目文件、测试、文档及完成说明。
 
-ChatGPT reviews the package against the task brief and acceptance criteria before organizing accepted files into the repository.
+## 交付处理流程
 
-After processing, the inbox is cleared of delivery artifacts so it is ready for the next task. **Do not delete this README.** Git does not track empty folders, so this placeholder keeps the inbox available.
+1. 用户手动将 Gemini 提供的完整交付包放入 `待交付/`。
+2. 用户通知 ChatGPT 开始审查，并说明对应任务编号。
+3. ChatGPT 对照任务书和验收标准检查文件；发现问题时反馈明确的返工清单。
+4. 只有通过审查并明确验收的文件，才可按项目规则整合到正式目录。
+5. 原始交付包如有保留价值，再按任务编号归档到 `DELIVERY/ARCHIVE/`。
 
-Original handoffs that need to be retained may be moved to `DELIVERY/ARCHIVE/TASK-XXXX/` after review.
+**提交不等于验收，验收不等于归档。** 未经实际检查，不得将交付标记为已验收；未经实际归档，不得标记为已归档。
+
+## 清理规则
+
+交付包处理完成并确认无需继续返工后，可以清理 `待交付/` 中的临时交付内容。不得删除本说明文件或 `待交付/README.md` 占位文件。
+
+## 安全要求
+
+禁止放入密码、访问令牌、私钥、浏览器个人数据、真实设备扫描隐私数据或无关个人文件。
