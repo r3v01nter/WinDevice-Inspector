@@ -21,6 +21,10 @@ This directory contains the maintained product and engineering documentation.
 - `decisions/`: accepted architecture decision records (ADRs).
 - `tasks/`: task briefs and acceptance criteria. New task briefs should use Chinese filenames while retaining stable task IDs.
 - `templates/`: reusable task, completion receipt, review, and issue templates.
+  - [中文任务书模板](templates/任务书模板.md)
+  - [中文完成回执模板](templates/完成回执模板.md)
+  - [审查报告模板](templates/审查报告模板.md)
+  - [缺陷记录模板](templates/缺陷记录模板.md)
 - `reviews/`: independent review reports and owner-provided local verification records.
 - `issues/`: confirmed defects and their retest records.
 - `任务中心/`: user-facing project management and navigation.
