@@ -46,6 +46,8 @@ Scan history remains on the local computer unless the user explicitly exports it
 
 ## Project documentation
 
+Start with the [documentation index](docs/README.md) for the complete document map.
+
 1. [Project overview](docs/PROJECT_OVERVIEW.md) — purpose, users, principles, scope, and milestones.
 2. [Product requirements](docs/PRODUCT_REQUIREMENTS.md) — confirmed functional and non-functional requirements.
 3. [Technical architecture](docs/TECHNICAL_ARCHITECTURE.md) — application layers, collection pipeline, contracts, and security boundaries.
