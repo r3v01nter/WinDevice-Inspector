@@ -1,14 +1,15 @@
 # Contributing to WinDevice Inspector
 
-Thank you for helping improve WinDevice Inspector. The project is currently in its first implementation stage.
+Thank you for helping improve WinDevice Inspector. The project is currently preparing its first implementation task.
 
 ## Before making changes
 
-1. Read README.md.
-2. Read docs/PROJECT_OVERVIEW.md and docs/PRODUCT_REQUIREMENTS.md.
-3. Read docs/TECHNICAL_ARCHITECTURE.md and docs/REPOSITORY_STRUCTURE.md.
-4. Read docs/AI_COLLABORATION.md and the active task brief.
-5. Inspect the current repository state before editing.
+1. Read `README.md`.
+2. Open the Chinese [task center](docs/任务中心/README.md) and check [the current task](docs/任务中心/当前任务.md).
+3. Read `docs/PROJECT_OVERVIEW.md` and `docs/PRODUCT_REQUIREMENTS.md`.
+4. Read `docs/TECHNICAL_ARCHITECTURE.md` and `docs/REPOSITORY_STRUCTURE.md`.
+5. Read `docs/AI_COLLABORATION.md` and the linked task brief.
+6. Inspect the current repository state before editing.
 
 ## Non-negotiable behavior
 
@@ -21,11 +22,12 @@ Thank you for helping improve WinDevice Inspector. The project is currently in i
 
 ## Code and test placement
 
-- Production code belongs in src/.
-- Automated tests and synthetic fixtures belong in tests/.
-- Product/engineering documentation belongs in docs/.
-- Task definitions belong in docs/tasks/.
-- Architecture decisions belong in docs/decisions/.
+- Production code belongs in `src/`.
+- Automated tests and synthetic fixtures belong in `tests/`.
+- Product/engineering documentation belongs in `docs/`.
+- Task definitions belong in `docs/tasks/`; new task brief filenames should be Chinese and retain a stable task ID.
+- Architecture decisions belong in `docs/decisions/`.
+- Current work and review state are indexed in `docs/任务中心/`.
 
 ## Change discipline
 
@@ -37,4 +39,4 @@ Thank you for helping improve WinDevice Inspector. The project is currently in i
 
 ## AI-assisted work
 
-Gemini is the primary implementation producer. ChatGPT provides technical direction, implementation guidance, independent review, and acceptance verification. Follow docs/AI_COLLABORATION.md and the active task brief.
+Gemini is the primary implementation producer. ChatGPT provides technical direction, implementation guidance, independent review, and task-index maintenance. The project owner controls repository handoff and final acceptance. Follow `docs/AI_COLLABORATION.md` and the current task linked from the Chinese task center.
