@@ -4,7 +4,16 @@
 
 WinDevice Inspector is a Windows desktop application project focused on collecting hardware, device, driver, operating-system, and reliability evidence in a structured way. It keeps scan history locally and helps users prepare diagnostic briefs for an AI assistant of their choice.
 
-> **Project stage:** repository foundation and requirements are established. TASK-0001 is ready for implementation handoff. No application implementation has been accepted yet.
+> **Project stage:** repository foundation and requirements are established. The Chinese task center is now the project-management entry point. TASK-0001 is pending production; no application implementation has been accepted yet.
+
+## Project management — start here
+
+- **[任务中心](docs/任务中心/README.md)** — current task, task index, review index, and development change record.
+- [当前任务](docs/任务中心/当前任务.md) — the single current work pointer.
+- [任务索引](docs/任务中心/任务索引.md) — task status and direct links to task briefs and delivery records.
+- [审查索引](docs/任务中心/审查索引.md) — independent review and verification history.
+- [唯一交付入口](DELIVERY/INBOX/待交付/) — owner-reviewed Gemini delivery files.
+- [交付归档](DELIVERY/ARCHIVE/) — preserved original delivery batches.
 
 ## At a glance
 
@@ -46,38 +55,37 @@ Scan history remains on the local computer unless the user explicitly exports it
 
 ## Project documentation
 
-Start with the [documentation index](docs/README.md) for the complete document map.
+Start with the [documentation index](docs/README.md).
 
 1. [Project overview](docs/PROJECT_OVERVIEW.md) — purpose, users, principles, scope, and milestones.
 2. [Product requirements](docs/PRODUCT_REQUIREMENTS.md) — confirmed functional and non-functional requirements.
 3. [Technical architecture](docs/TECHNICAL_ARCHITECTURE.md) — application layers, collection pipeline, contracts, and security boundaries.
 4. [Repository structure](docs/REPOSITORY_STRUCTURE.md) — where each type of file belongs.
 5. [Roadmap](docs/ROADMAP.md) — staged delivery plan.
-6. [Project status](docs/PROJECT_STATUS.md) — current state and next actions.
+6. [Project status](docs/PROJECT_STATUS.md) — current verified state and next actions.
 7. [AI collaboration workflow](docs/AI_COLLABORATION.md) — Gemini production and ChatGPT technical leadership/review.
 8. [TASK-0001](docs/tasks/TASK-0001-vertical-slice.md) — first implementation task.
 
-Architecture decisions are recorded in docs/decisions/. Reusable task and receipt formats are in docs/templates/.
+Architecture decisions are recorded in `docs/decisions/`. Reusable task and completion-receipt formats are in `docs/templates/`.
 
 ## Repository layout
 
-- README.md and .gitignore: repository entry point and Git rules.
-- src/: production application and library projects.
-- tests/: automated tests, utilities, and synthetic fixtures.
-- docs/: product, architecture, roadmap, status, decisions, tasks, and templates.
-- DELIVERY/INBOX/: incoming AI implementation packages.
-- DELIVERY/ARCHIVE/: original packages retained after review.
+- `src/`: production application and library projects.
+- `tests/`: automated tests, utilities, and synthetic fixtures.
+- `docs/`: product, architecture, roadmap, status, decisions, tasks, templates, task center, reviews, and issues.
+- `DELIVERY/INBOX/待交付/`: the single incoming delivery location.
+- `DELIVERY/ARCHIVE/`: original packages retained by task and delivery round.
 
-The src/ and tests/ directories initially contain placement guidance only. Gemini should inspect the current repository and TASK-0001 before creating the first solution structure.
+The `src/` and `tests/` directories initially contain placement guidance only. Gemini should inspect the current repository and TASK-0001 before creating the first solution structure.
 
 ## Collaboration model
 
-- **Project owner:** product decisions, Windows environment, final acceptance, and delivery transfer.
-- **Gemini:** primary implementation producer; reads the public repository and returns complete implementation packages.
-- **ChatGPT:** technical lead; defines tasks, guides difficult implementation decisions, reviews code and test evidence, and directs revisions.
+- **Project owner:** product decisions, Windows environment, final acceptance, and manual delivery transfer.
+- **Gemini:** primary implementation producer; reads the public repository and returns complete implementation packages. It does not directly commit to this repository.
+- **ChatGPT:** technical lead; defines tasks, guides difficult implementation decisions, reviews code and test evidence, directs revisions, and maintains task/review records.
 - **No unreviewed integration:** delivered code is checked against the task and acceptance criteria before becoming canonical project source.
 
-See [AI collaboration workflow](docs/AI_COLLABORATION.md).
+See [AI collaboration workflow](docs/AI_COLLABORATION.md) and the [任务中心](docs/任务中心/README.md).
 
 ## License
 
