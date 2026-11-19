@@ -1,41 +1,66 @@
 # Technical Architecture — WinDevice Inspector
 
-- Status: Proposed baseline; implementation details require validation during prototype work.
+- Status: Accepted starting architecture; implementation details are validated through tasks.
+- Target baseline: C# / .NET 10 LTS / WPF / Windows 11 x64.
 
-## 1. Recommended direction
+## 1. Architecture goals
 
-Use **C# with a supported .NET LTS release** for the application and collection engine. Start with **WPF** unless a documented prototype demonstrates a compelling reason to use WinUI 3. WPF offers a mature Windows desktop ecosystem and a straightforward path for a first Windows-only utility.
-
-Keep UI, collection, data contracts, diagnostics, and report generation separated. Do not build a monolithic window with PowerShell scripts embedded in event handlers.
+- Keep the application maintainable as a Windows-first desktop utility.
+- Separate presentation, scan orchestration, data contracts, collectors, persistence, diagnostics, and report generation.
+- Make collection read-only, explicit, cancellable, observable, and independently testable.
+- Preserve source evidence and uncertainty instead of inventing missing values.
+- Keep scan data local unless the user deliberately exports it.
 
 ## 2. Proposed solution layout
 
-```text
-src/
-  WinDeviceInspector.App/          # WPF UI, navigation, view models
-  WinDeviceInspector.Core/         # domain models, orchestration, status types
-  WinDeviceInspector.Collectors/   # PowerShell, CIM, Windows API collectors
-  WinDeviceInspector.Diagnostics/  # event normalization and timeline analysis
-  WinDeviceInspector.Reporting/    # JSON, HTML, TXT and AI brief generation
-tests/
-  WinDeviceInspector.Core.Tests/
-  WinDeviceInspector.Collectors.Tests/
-  WinDeviceInspector.Reporting.Tests/
-```
+The exact project boundaries may be refined after the first vertical slice. The intended direction is:
 
-Names and boundaries may be adjusted after a working vertical slice, but dependency direction should remain inward: UI depends on Core abstractions; collectors implement Core contracts; reporting consumes versioned data contracts.
+- src/WinDeviceInspector.App/: WPF UI, views, view models, navigation.
+- src/WinDeviceInspector.Core/: domain models, contracts, orchestration abstractions.
+- src/WinDeviceInspector.Collectors/: PowerShell process runner and collectors.
+- src/WinDeviceInspector.Persistence/: local scan history and serialization.
+- src/WinDeviceInspector.Diagnostics/: event normalization and evidence correlation.
+- src/WinDeviceInspector.Reporting/: JSON/HTML/TXT reports and AI diagnostic briefs.
+- tests/: matching automated test projects.
 
-## 3. Collection pipeline
+Do not create every project merely to match this diagram. TASK-0001 should use the smallest coherent solution that proves its required vertical slice. Add project boundaries when they provide a concrete testability or dependency benefit.
 
-1. Create a scan session with a unique ID, timestamp, time zone, application version, and schema version.
+Dependency direction:
+- App depends on Core abstractions and presentation-facing services.
+- Collectors implement Core collection contracts.
+- Persistence stores versioned scan contracts and does not own UI behavior.
+- Diagnostics and Reporting consume collected evidence; they do not start scans.
+- Core must not depend on WPF views.
+
+## 3. Mandatory scan-consent boundary
+
+The scan lifecycle is a product-level safety boundary:
+
+1. The application starts without querying hardware or system diagnostic sources.
+2. The user deliberately activates a scan action.
+3. The application presents the exact scan scope, purpose, potentially sensitive categories, and privilege requirements.
+4. The user explicitly confirms or cancels.
+5. Only after confirmation may the scan orchestrator create a collector process or invoke a collector.
+6. The user can cancel an active scan.
+7. Results are validated, displayed, and optionally saved locally.
+
+No startup, background, scheduled, timer-driven, idle-time, resume-triggered, or automatic retry scan is permitted. Opening saved history is not a scan and must not invoke collectors.
+
+Enforce this boundary in the orchestration/service layer, not only by hiding or disabling a UI button. Design the scan-start API so a confirmed user action is required and test that cancellation/startup paths never invoke a collector.
+
+## 4. Collection pipeline
+
+After consent has been granted:
+
+1. Create a scan session with a unique ID, UTC timestamp, time-zone context, application version, collector version, and schema version.
 2. Execute independent collectors asynchronously with bounded concurrency.
-3. Record per-collector status, duration, source, query window, and warnings.
-4. Normalize collected results into versioned domain contracts without discarding source-specific fields.
-5. Run deterministic diagnostics and event correlation.
-6. Persist the raw structured scan locally.
-7. Generate redacted exports and AI diagnostic briefs on user request.
+3. Record each collector's start/end time, duration, source, outcome, warnings, and query/lookback window.
+4. Normalize results into versioned contracts while retaining relevant source-specific evidence.
+5. Validate the complete result before presenting or persisting it.
+6. Save the scan locally according to the user's selected save behavior.
+7. Generate exports or AI briefs only after a separate user action and content review.
 
-Suggested result states:
+Suggested category states:
 - Success
 - Partial
 - Unsupported
@@ -44,82 +69,102 @@ Suggested result states:
 - Failed
 - Skipped
 
-Never substitute guessed values for missing values.
+A failure in one category must not discard successful results from other categories. Unknown or unavailable values must remain explicit.
 
-## 4. PowerShell integration
+## 5. PowerShell integration boundary
 
-PowerShell is a collection backend, not the whole application.
+PowerShell is a controlled collection backend, not the application UI and not an unrestricted command console.
 
-- Launch a child PowerShell process with a controlled executable path and explicit arguments.
-- Prefer signed or application-shipped scripts/resources; do not build command strings from untrusted UI text.
-- Use non-interactive execution, a controlled working directory, and explicit output encoding.
-- Capture stdout, stderr, exit code, timeout, and cancellation.
-- Prefer structured JSON output with a versioned schema over parsing formatted tables.
-- Keep scripts read-only. Do not invoke arbitrary user-provided commands.
-- Do not require an elevated process for ordinary collection.
-- If an administrator-only collector is added, explain exactly what it reads and request explicit consent for that operation.
-- Avoid logging secrets or full environment variables.
+- Launch a separate non-interactive child process using a fixed, application-shipped script path.
+- Prefer PowerShell 7 when available; support Windows PowerShell only where compatibility is tested.
+- Use explicit arguments, a controlled working directory, and predictable UTF-8 output.
+- Capture stdout, stderr, exit code, elapsed time, timeout, and cancellation.
+- Emit machine-readable JSON on stdout; diagnostic messages belong on stderr.
+- Never build command text from user-entered strings or collected device values.
+- Never execute event messages, device names, registry values, or other collected content.
+- Do not change machine-wide execution policy.
+- Do not silently elevate. Ordinary collection should not require administrator rights; a later collector needing elevation must be separately explained and explicitly consented.
+- Terminate the child process tree safely on cancellation or timeout.
+- No network requests, telemetry, uploads, registry writes, driver changes, or system configuration changes.
 
-Use CIM/WMI and native PowerShell cmdlets for baseline inventory. Use Windows APIs or specialized, well-reviewed libraries only where the required data is not exposed reliably through CIM.
+## 6. Initial Windows data-source map
 
-## 5. Windows data-source map
-
-| Information | Initial source candidates | Notes |
+| Information | Candidate sources | Important limitations |
 |---|---|---|
-| OS/system/BIOS/CPU/board | CIM classes and Windows APIs | Validate missing/virtualized fields |
-| Memory modules | Win32_PhysicalMemory and related CIM | Timings/channel topology may be unavailable |
-| GPU/display | Win32_VideoController, DisplayConfig APIs, EDID | Adapter memory and active mode can be misreported by older WMI fields |
-| Storage | Storage cmdlets, CIM, NVMe/SMART interfaces | Health counters vary by controller/driver |
-| PnP devices | Get-PnpDevice, Win32_PnPEntity, SetupAPI | Preserve problem codes and hardware IDs |
-| Drivers | Get-CimInstance Win32_PnPSignedDriver, PnP/SetupAPI | Driver date/version/provider/signature availability varies |
-| Network | Get-NetAdapter, Get-NetIPConfiguration, CIM | Redact IP/MAC data in shareable output |
-| System/application errors | Get-WinEvent | Access and retention depend on channel and permissions |
-| Unexpected shutdowns | System event log providers and IDs | Evidence, not root-cause proof |
-| Reliability history | Reliability WMI classes / RAC records where present | Availability differs by Windows version and system configuration |
-| WER | WER report directories and related events | Some content may be access-restricted or contain personal paths |
-| Diagnostic reports | Existing Windows report locations and supported APIs | Discover rather than assume fixed file availability |
+| OS, computer, BIOS, CPU, board | CIM/WMI and Windows APIs | Firmware fields may be missing or vendor-specific |
+| Memory modules | Win32_PhysicalMemory and related CIM | Timings/channel topology may not be exposed |
+| GPU/display | CIM, DisplayConfig APIs, EDID | WMI memory/mode fields can be inaccurate |
+| Storage | Storage cmdlets, CIM, supported health interfaces | SMART/NVMe health depends on controller and driver |
+| PnP devices | PnP cmdlets, CIM, SetupAPI | Preserve problem codes and hardware IDs |
+| Drivers | Signed-driver CIM data, PnP/SetupAPI | Signature and date fields vary |
+| Network | NetAdapter cmdlets and IP configuration APIs | IP/MAC values may identify the user/network |
+| System/application errors | Event Log APIs / Get-WinEvent | Access and retention vary by channel |
+| Unexpected shutdowns | Relevant System providers and event IDs | Evidence of an event, not proof of root cause |
+| Reliability history | RAC data where present | Availability varies by Windows configuration |
+| WER | Windows Error Reporting metadata | Paths/messages may contain personal information |
 
-## 6. Event handling
+The actual collector must report unsupported or inaccessible sources rather than silently omit them.
 
-Keep both normalized fields and original event evidence:
-- Channel/log name
-- Provider/source
-- Event ID
-- Record ID
-- Level
-- UTC timestamp and rendered local timestamp
-- Machine name as locally stored, with redaction in shareable output
-- Event message and selected event data
-- Original XML where appropriate and size-limited
+## 7. Result contract and schema versioning
 
-Build timelines using timestamps. Do not equate correlation with causation. In particular, Kernel-Power 41 and EventLog 6008 indicate an unexpected shutdown was observed; neither alone identifies whether the cause was power loss, a forced reset, a crash, or another failure. BugCheck 1001 and dump metadata may add evidence but still require interpretation.
+The canonical scan result is a versioned JSON document containing at least:
+- schemaVersion
+- scanId
+- collectedAtUtc
+- timeZoneId or equivalent time-zone context
+- computerName (local raw value where collected)
+- applicationVersion
+- collectorVersion
+- categories
 
-## 7. Data storage and export
+Each category contains:
+- Stable id and display name
+- status
+- source
+- collectedAtUtc
+- durationMs, where measurable
+- Structured data
+- warnings
+- Relevant query window or collection parameters
 
-- Canonical scan format: versioned JSON.
-- Local history: SQLite or JSON-per-scan for the first prototype; choose after testing expected data volume and comparison needs.
-- User-facing exports: HTML and TXT, plus JSON for machine-readable analysis.
-- Store raw evidence separately from redacted/shareable output.
-- Include schema version, collector version, scan ID, time zone, and collection outcomes in every export.
+Schema changes must be deliberate and documented. Fixtures must use synthetic values, never real machine identifiers or user scan exports.
 
-## 8. Security and privacy
+## 8. Local persistence and exports
 
-- Local-first; no automatic upload.
-- Read-only collection.
-- Least privilege.
-- No silent elevation.
-- Redaction before sharing.
-- Explicit preview before copying/exporting an AI brief.
-- Treat event messages, paths, usernames, serial numbers, IP/MAC addresses, and crash metadata as potentially sensitive.
-- Validate and bound all imported or generated content.
-- Do not execute collected strings or event content as commands.
+- Keep local scan history under the current user's local application data directory.
+- Do not store real scan data in the repository.
+- JSON is the canonical machine-readable snapshot format.
+- HTML and TXT are user-facing report formats.
+- Include schema version, application/collector version, scan ID, timestamps, and category outcomes in exports.
+- Allow users to open and delete local history.
+- Opening history must never initiate a new scan.
+- Export/copy must be an explicit user action.
 
-## 9. Testing strategy
+The first implementation may use one JSON file per scan. Revisit SQLite only if history size, querying, or comparison requirements justify it.
 
-- Unit-test normalization, schema versioning, redaction, event correlation, and brief generation.
-- Use fixture data for known Windows event records.
-- Integration-test collectors on supported Windows versions.
-- Test non-admin execution and permission-denied behavior.
-- Test partial failure: one failed collector must not discard successful categories.
-- Validate JSON/HTML output and ensure sensitive-value redaction.
-- Maintain a test matrix for Windows build, PowerShell version, and hardware vendor variation.
+## 9. Privacy and sharing
+
+- Explain collection scope and purpose before each scan.
+- Warn that identifiers, serial numbers, usernames, machine names, paths, IP/MAC addresses, and event text may be sensitive.
+- Keep raw local evidence separate from the shareable content the user selects.
+- Before generating a shareable report or AI brief, show the actual content and let the user include/exclude fields and categories.
+- Do not silently redact fields the user expects to inspect, and do not silently expose sensitive fields.
+- No automatic upload, telemetry, cloud sync, or AI-provider connection.
+
+## 10. Reliability evidence and interpretation
+
+Preserve both normalized fields and relevant original event evidence: channel, provider, event ID, record ID, level, timestamp, machine context, message, and selected event data. Original XML may be retained where useful, bounded in size, and handled as potentially sensitive.
+
+Build timelines by timestamps but do not equate correlation with causation. Kernel-Power 41 and EventLog 6008 indicate an unexpected shutdown was observed; neither alone identifies whether the cause was power loss, forced reset, crash, or another failure. BugCheck 1001 and dump metadata add evidence but still require interpretation.
+
+## 11. Testing strategy
+
+- Unit-test schema parsing, validation, status handling, serialization, and version compatibility.
+- Test the consent gate: app startup and Cancel must not invoke a collector.
+- Test process timeout, cancellation, stderr/stdout handling, non-zero exit, and malformed JSON.
+- Test local history save/load/delete and corrupt-entry handling.
+- Use synthetic fixture events for event normalization and correlation.
+- Integration-test collectors on supported Windows versions and non-admin accounts.
+- Test partial failure and unsupported data sources.
+- Test report previews and user-selected field inclusion.
+- Record Windows build and PowerShell version in integration-test evidence.
