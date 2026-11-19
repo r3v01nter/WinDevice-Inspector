@@ -1,74 +1,82 @@
 # WinDevice Inspector
 
-**WinDevice Inspector** is a Windows desktop application for manually initiated device information collection, Windows system-state inspection, local scan history, and AI-ready diagnostic task generation.
+**A user-controlled Windows device and system evidence collector.**
 
-The application is an evidence collector and organizer. It does not perform background scans, silently upload information, or automatically repair the system.
+WinDevice Inspector is a Windows desktop application project focused on collecting hardware, device, driver, operating-system, and reliability evidence in a structured way. It keeps scan history locally and helps users prepare diagnostic briefs for an AI assistant of their choice.
 
-## Product goals
+> **Project stage:** repository foundation and requirements are established. TASK-0001 is ready for implementation handoff. No application implementation has been accepted yet.
 
-- Collect useful, supportable Windows hardware, device, driver, configuration, and reliability evidence.
-- Preserve source details, timestamps, collection status, and known limitations.
-- Keep scan history on the local computer.
-- Generate full and focused diagnostic briefs that users can review and provide to an AI assistant themselves.
-- Give users clear notice of collection and control over what is included in shareable output.
+## At a glance
 
-## First-release scope
+| Area | Direction |
+|---|---|
+| Application | Native Windows desktop application |
+| Language / UI | C# / .NET 10 LTS / WPF |
+| Initial target | Windows 11 x64 |
+| Collection backend | Controlled, read-only PowerShell child process |
+| Scan behavior | Manual start + explicit confirmation every time |
+| Storage | Local scan history; versioned JSON |
+| Diagnostic output | Full and focused AI diagnostic briefs |
+| Distribution | Portable package + Windows installer |
+| Network behavior | No automatic upload, telemetry, or AI-provider connection |
+| Repair behavior | No automatic repair or driver modification |
 
-1. Manually initiated hardware and device inventory.
-2. Windows version, configuration, update, and boot information.
-3. PnP device and driver inventory, including problem codes.
-4. System/application event evidence, unexpected shutdowns, bugchecks, WHEA, and reliability history.
-5. Local scan history and structured exports.
-6. Full and focused AI diagnostic brief generation, without an AI provider connection.
-7. Both portable and installer distribution packages.
+## What it is intended to do
 
-**Not in the first release:** continuous hardware sensor monitoring, online AI integration, automatic repair, driver installation/removal, stress tests, or system tuning.
+- Collect hardware and device inventory: CPU, motherboard, memory, GPU, monitors, storage, network, audio, USB, Bluetooth, PnP devices, and drivers.
+- Collect Windows configuration and reliability evidence, including relevant event logs, unexpected shutdowns, bugchecks, WHEA, Reliability Monitor/RAC, and WER data as supported.
+- Preserve collection sources, timestamps, warnings, and partial-failure states.
+- Save scan snapshots locally and let users inspect previous scans.
+- Generate full or issue-focused diagnostic briefs locally, for users to review and share manually.
+
+## What it will not do
+
+- Start a scan when the application opens.
+- Run scheduled, periodic, idle-time, or background scans.
+- Upload scan data automatically or connect to an AI service without the user's action.
+- Install, update, disable, or remove drivers.
+- Automatically repair, tune, benchmark, or stress-test the computer.
+- Pretend unavailable hardware values are known.
 
 ## User control and privacy
 
-- Every scan must be started manually by the user.
-- Before each scan, show what categories will be collected and ask for explicit confirmation.
-- No background, scheduled, startup, or unattended scans.
-- Explain collection purpose and potentially sensitive fields before the user shares data.
-- Let users review and choose which fields are included in AI briefs and shareable exports. Do not silently remove or silently include sensitive fields.
-- Store scan history locally. No automatic upload or telemetry.
+Before each scan, the application must explain the collection scope, purpose, and known sensitive data categories. The user must confirm or cancel. Before sharing a report or AI brief, the user can review the actual content and choose which fields/categories to include. The application must neither silently redact nor silently expose sensitive fields.
 
-## Technology
+Scan history remains on the local computer unless the user explicitly exports it.
 
-- C# / .NET 10 LTS / WPF.
-- Windows 11 x64 initial target.
-- PowerShell is a controlled, read-only child-process collection backend, not the user-facing application.
+## Project documentation
 
-## Project status
+1. [Project overview](docs/PROJECT_OVERVIEW.md) — purpose, users, principles, scope, and milestones.
+2. [Product requirements](docs/PRODUCT_REQUIREMENTS.md) — confirmed functional and non-functional requirements.
+3. [Technical architecture](docs/TECHNICAL_ARCHITECTURE.md) — application layers, collection pipeline, contracts, and security boundaries.
+4. [Repository structure](docs/REPOSITORY_STRUCTURE.md) — where each type of file belongs.
+5. [Roadmap](docs/ROADMAP.md) — staged delivery plan.
+6. [Project status](docs/PROJECT_STATUS.md) — current state and next actions.
+7. [AI collaboration workflow](docs/AI_COLLABORATION.md) — Gemini production and ChatGPT technical leadership/review.
+8. [TASK-0001](docs/tasks/TASK-0001-vertical-slice.md) — first implementation task.
 
-Product decisions are confirmed. The repository contains the planning baseline and TASK-0001 implementation brief. Application code has not yet been accepted. The developer environment must be verified before claiming a successful local build.
+Architecture decisions are recorded in docs/decisions/. Reusable task and receipt formats are in docs/templates/.
 
-See:
-- [Product requirements](docs/PRODUCT_REQUIREMENTS.md)
-- [Technical architecture](docs/TECHNICAL_ARCHITECTURE.md)
-- [Roadmap](docs/ROADMAP.md)
-- [AI collaboration workflow](docs/AI_COLLABORATION.md)
-- [Project status](docs/PROJECT_STATUS.md)
-- [TASK-0001](docs/tasks/TASK-0001-vertical-slice.md)
-- [Delivery inbox](DELIVERY/INBOX/README.md)
+## Repository layout
+
+- README.md and .gitignore: repository entry point and Git rules.
+- src/: production application and library projects.
+- tests/: automated tests, utilities, and synthetic fixtures.
+- docs/: product, architecture, roadmap, status, decisions, tasks, and templates.
+- DELIVERY/INBOX/: incoming AI implementation packages.
+- DELIVERY/ARCHIVE/: original packages retained after review.
+
+The src/ and tests/ directories initially contain placement guidance only. Gemini should inspect the current repository and TASK-0001 before creating the first solution structure.
 
 ## Collaboration model
 
-- **Project owner:** makes product decisions, provides the development environment, and transfers Gemini deliverables.
-- **Gemini:** primary implementation producer. It reads the public repository and task brief, then returns complete source files and a truthful completion receipt.
-- **ChatGPT:** technical lead and acceptance reviewer. It defines tasks, guides implementation decisions, reviews code, checks tests/build evidence, identifies defects, and directs revisions.
-- **Delivery inbox:** the owner places each complete delivery package in `DELIVERY/INBOX/`. Accepted files are integrated only after review.
+- **Project owner:** product decisions, Windows environment, final acceptance, and delivery transfer.
+- **Gemini:** primary implementation producer; reads the public repository and returns complete implementation packages.
+- **ChatGPT:** technical lead; defines tasks, guides difficult implementation decisions, reviews code and test evidence, and directs revisions.
+- **No unreviewed integration:** delivered code is checked against the task and acceptance criteria before becoming canonical project source.
 
-## Engineering principles
-
-- Explicit user initiation and confirmation for every scan.
-- Read-only collection; no silent elevation.
-- No automatic network upload or AI-provider connection.
-- No fabricated values; unknown and unavailable are valid outcomes.
-- Distinguish observed facts, hypotheses, and unknowns.
-- Preserve event identifiers, providers, timestamps, and relevant source details.
-- Do not make destructive system changes.
+See [AI collaboration workflow](docs/AI_COLLABORATION.md).
 
 ## License
 
-No license has been selected yet. Until a license is added, do not assume that the source code may be reused, modified, or redistributed.
+No license has been selected. Until a license is added, do not assume that the source may be reused, modified, or redistributed.
