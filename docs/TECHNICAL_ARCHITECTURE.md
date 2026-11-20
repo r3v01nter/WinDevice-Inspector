@@ -76,7 +76,8 @@ A failure in one category must not discard successful results from other categor
 PowerShell is a controlled collection backend, not the application UI and not an unrestricted command console.
 
 - Launch a separate non-interactive child process using a fixed, application-shipped script path.
-- Prefer PowerShell 7 when available; support Windows PowerShell only where compatibility is tested.
+- The project must support both PowerShell 7 and Windows PowerShell 5.1. Prefer PowerShell 7 when available; retain a tested 5.1 path.
+- Both versions require explicit integration-test evidence for process launch, non-interactive execution, UTF-8 JSON, required CIM/commands, stdout/stderr, exit codes, timeout, cancellation, and non-admin behavior. Record the actual runtime version; never claim support for an untested version.
 - Use explicit arguments, a controlled working directory, and predictable UTF-8 output.
 - Capture stdout, stderr, exit code, elapsed time, timeout, and cancellation.
 - Emit machine-readable JSON on stdout; diagnostic messages belong on stderr.
@@ -108,14 +109,16 @@ The actual collector must report unsupported or inaccessible sources rather than
 ## 7. Result contract and schema versioning
 
 The canonical scan result is a versioned JSON document containing at least:
-- schemaVersion
+- schemaVersion (TASK-0001 baseline: v1)
 - scanId
 - collectedAtUtc
 - timeZoneId or equivalent time-zone context
-- computerName (local raw value where collected)
+- computerName (local raw value where collected; unknown must be explicit)
 - applicationVersion
 - collectorVersion
 - categories
+
+TASK-0001 must implement and test this complete top-level field set; it is not permitted to omit time-zone context or application version.
 
 Each category contains:
 - Stable id and display name
@@ -125,7 +128,12 @@ Each category contains:
 - durationMs, where measurable
 - Structured data
 - warnings
-- Relevant query window or collection parameters
+- durationMs, where measurable
+- Structured data
+- warnings
+- Relevant query window or collection parameters actually used by the collector
+
+TASK-0001 category contracts must include the full field set above. Query/collection parameters must reflect actual execution and must not contain secrets or arbitrary command text.
 
 Schema changes must be deliberate and documented. Fixtures must use synthetic values, never real machine identifiers or user scan exports.
 
@@ -139,6 +147,7 @@ Schema changes must be deliberate and documented. Fixtures must use synthetic va
 - Allow users to open and delete local history.
 - Opening history must never initiate a new scan.
 - Export/copy must be an explicit user action.
+- For raw JSON export, show a sensitive-information warning before opening the save dialog. The user may continue or cancel; cancel must not open the save dialog or write a file. This warning is not automatic redaction: raw evidence remains unchanged.
 
 The first implementation may use one JSON file per scan. Revisit SQLite only if history size, querying, or comparison requirements justify it.
 
@@ -146,6 +155,7 @@ The first implementation may use one JSON file per scan. Revisit SQLite only if 
 
 - Explain collection scope and purpose before each scan.
 - Warn that identifiers, serial numbers, usernames, machine names, paths, IP/MAC addresses, and event text may be sensitive.
+- Raw JSON export must show a one-time warning before the save dialog, naming likely sensitive categories. If the user cancels, no save dialog or file write may occur.
 - Keep raw local evidence separate from the shareable content the user selects.
 - Before generating a shareable report or AI brief, show the actual content and let the user include/exclude fields and categories.
 - Do not silently redact fields the user expects to inspect, and do not silently expose sensitive fields.
