@@ -66,7 +66,7 @@ Start with the [documentation index](docs/README.md).
 5. [Roadmap](docs/ROADMAP.md) — staged delivery plan.
 6. [Project status](docs/PROJECT_STATUS.md) — current verified state and next actions.
 7. [AI collaboration workflow](docs/AI_COLLABORATION.md) — Gemini production and ChatGPT technical leadership/review.
-8. [TASK-0001](docs/tasks/TASK-0001-vertical-slice.md) — first implementation task.
+8. [TASK-0001 开工准备与决策确认书](docs/tasks/TASK-0001_开工准备与决策确认书.md) — pre-start decisions for the first implementation task.
 
 Architecture decisions are recorded in `docs/decisions/`. Reusable task and completion-receipt formats are in `docs/templates/`.
 
