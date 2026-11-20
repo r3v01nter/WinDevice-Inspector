@@ -51,7 +51,7 @@ The application is an evidence collector and organizer. It is not an autonomous 
 
 ### 4.2 Manual collection
 
-Required categories, where accessible:
+Required categories, where accessible; this list is a baseline, not a ceiling. The comprehensive device-class, interface, telemetry, and failure-reporting requirements in [完整设备诊断与报告导出需求](完整设备诊断与报告导出需求.md) are authoritative:
 - Computer/system manufacturer, model, firmware, and OS.
 - CPU, physical memory modules, motherboard, BIOS/UEFI, GPU, display adapters, monitors/EDID.
 - Storage devices, partitions, volumes, bus/interface details, and supported health indicators.
@@ -106,7 +106,7 @@ The user must preview the actual content and choose which fields/categories to i
 
 - Save scan results locally in a documented, versioned format.
 - JSON is the canonical structured format.
-- Support readable HTML and plain-text output.
+- Support readable HTML, XLSX workbook, and plain-text/Markdown output.\n- Package canonical JSON, XLSX, HTML, and AI analysis instructions into a user-exported ZIP.
 - Retain scan timestamps, collector version, schema version, and category outcomes.
 - First release must provide a local history list and allow opening a previous scan.
 - Scan comparison may be implemented after reliable history persistence; it is not a prerequisite for the first vertical slice.
@@ -156,7 +156,7 @@ The user must preview the actual content and choose which fields/categories to i
 - Permission-denied and unsupported data are clearly identified.
 - Unexpected-shutdown and bugcheck evidence is presented as a timestamped timeline with original event identifiers.
 - Full and focused AI diagnostic briefs can be generated without network access.
-- JSON and readable HTML exports are valid and include schema/collector version.
+- JSON, XLSX, HTML, and AI analysis instructions are exported as a ZIP package and include schema/collector version and traceable collection metadata.
 - Local scan history can be viewed and deleted by the user.
 - Shareable output is previewable and the user controls sensitive-field inclusion.
 - The application performs no system modification during collection.
