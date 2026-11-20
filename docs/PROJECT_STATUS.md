@@ -3,15 +3,15 @@
 - Project: WinDevice Inspector
 - Repository: https://github.com/r3v01nter/WinDevice-Inspector
 - Default branch: main
-- Current stage: Repository foundation and project-management workflow established; TASK-0001 is in pre-start decision preparation.
+- Current stage: Repository foundation established; TASK-0001 formal task brief published and awaiting Phase A project-structure proposal.
 - Closed management item: WDI-AUDIT-0001 R3 — independent document review passed and the owner explicitly accepted the result on 2026-11-20.
-- Current task: TASK-0001 — First Runnable Vertical Slice; status: pending owner decisions on schema, project boundaries, PowerShell compatibility, and export privacy notice.
+- Current task: TASK-0001 — First Runnable Vertical Slice; status: ready for Phase A proposal only. Phase B implementation is not authorized until the owner approves C-02.
 - Application implementation: Not started / no application code accepted.
 - Local development environment: Not yet verified from a complete owner-supplied environment report.
 
 For the live task state, use the Chinese [任务中心](任务中心/README.md), especially [当前任务](任务中心/当前任务.md) and [任务索引](任务中心/任务索引.md). This status page is a high-level project summary, not a competing task tracker.
 
-## Confirmed product decisions
+## Confirmed product and technical decisions
 
 - C# / .NET 10 LTS / WPF; Windows 11 x64 first.
 - Both portable and installer distributions are required for V1.
@@ -21,42 +21,44 @@ For the live task state, use the Chinese [任务中心](任务中心/README.md),
 - Collection is read-only; no silent elevation, automatic repair, driver modification, telemetry, or automatic upload.
 - Privacy requires clear collection notices and user-controlled review/selection before sharing. No silent inclusion or silent redaction.
 - Local scan history is required in V1.
-- PowerShell is a controlled child-process collection backend.
-- Gemini is the primary implementation producer. ChatGPT is technical lead and independent reviewer. The owner makes final decisions, transfers deliverables, performs required local verification, and controls final acceptance.
+- PowerShell 7 and Windows PowerShell 5.1 are both in the supported target; both require explicit test evidence.
+- Raw JSON export must display a sensitive-information warning before the save dialog; cancellation must not write a file.
+- TASK-0001 Schema v1 includes time-zone context, application version, category duration where measurable, and actual query/collection parameters.
+- C-02 is intentionally gated: Gemini proposes the smallest coherent project/module structure and dependency graph; the owner approves the Persistence boundary before implementation.
 
 ## Repository foundation
 
 | Area | State |
 |---|---|
 | Root README and documentation index | Project navigation established |
-| Product requirements and technical architecture | Documented; product constraints remain authoritative |
+| Product requirements and technical architecture | Updated with approved Schema/PowerShell/export decisions |
 | Repository structure and roadmap | Documented |
 | Collaboration workflow | Single Chinese-named delivery inbox |
 | ADR-0001 | Desktop stack decision accepted |
 | Task brief and completion receipt templates | Present |
 | Chinese task center | Established with current-task pointer and indexes |
 | WDI-AUDIT-0001 | R3 independently reviewed, owner accepted, closed |
-| TASK-0001 | Pre-start decisions pending; implementation not started |
+| TASK-0001 | Formal brief published; Phase A structure proposal pending |
 | Source/test directories | Placement guidance only; implementation pending |
 
 ## TASK-0001 readiness
 
-The existing English task brief was found to be stale in two respects: it uses the legacy nested delivery-package layout, and it does not fully align its JSON result contract with the current technical architecture. A Chinese standalone pre-start decision brief is the canonical current task document. The old English task brief is retained for historical traceability and is not an execution contract.
+The owner confirmed:
+- C-01 = A: complete Schema v1 field set.
+- C-02 = C: require a minimal structure proposal and dependency graph before deciding whether Persistence is a separate project.
+- C-03 = A: support PowerShell 7 and Windows PowerShell 5.1 with separate test evidence.
+- D-07 = A: show a sensitive-information warning before raw JSON export.
 
-Open items:
-- C-01: reconcile timeZoneId, applicationVersion, durationMs, and per-category query/collection parameters in the result schema.
-- C-02: decide whether Persistence is a separate project in Phase 1 or remains a module/folder in the smallest coherent solution.
-- C-03: define tested support and acceptance evidence for PowerShell 5.1 and PowerShell 7.
-- D-07: decide whether raw JSON export displays an additional sensitive-data warning before the save dialog.
-- D-09: owner-supplied Windows/.NET/PowerShell environment report remains outstanding.
+The current standalone execution contract is [TASK-0001 正式实现任务书](tasks/TASK-0001_正式实现任务书.md). The current authorization is limited to Phase A: a project/module structure proposal and dependency graph. No production source, solution, project, or test project may be created until the owner approves C-02.
 
-D-01 (license) and D-08 (GitHub metadata) do not block preparing the implementation task, but D-01 must be resolved before public reuse/distribution. D-06 (portable/installer packaging and data paths) remains a later architecture decision and does not block this vertical slice.
+D-01 (license) remains unselected and must be resolved before public reuse/distribution. D-06 (portable/installer packaging and final data-path strategy) remains a later-stage decision. D-08 (GitHub About metadata) does not block the vertical slice. D-09 (owner-supplied Windows/.NET/PowerShell environment report) remains outstanding and is required before final local verification and acceptance.
 
 ## Verification
 
-- Local .NET 10 / WPF build: Not verified.
+- Local .NET 10 / WPF build: Not verified; no application implementation exists.
 - Application runtime behavior: Not verified.
-- PowerShell 5.1 / 7 integration: Not verified.
+- PowerShell 7 integration: Not verified.
+- Windows PowerShell 5.1 integration: Not verified.
 - No claim of build, test, or runtime success is made.
 
 ## Decision log
@@ -76,8 +78,8 @@ Added the Chinese task center, current-task pointer, task/review indexes, review
 ### 2026-11-20 — WDI-AUDIT-0001 R3 acceptance
 R3 passed independent review and was explicitly accepted by the project owner. The original R3 package and review report remain archived. WDI-AUDIT-0001 is closed.
 
-### 2026-11-20 — TASK-0001 pre-start review
-Identified stale delivery instructions and schema/project/PowerShell decision gaps in the legacy task brief. TASK-0001 remains pending owner decisions; implementation has not started.
+### 2026-11-20 — TASK-0001 owner decisions
+The owner confirmed C-01=A, C-02=C, C-03=A, and D-07=A. The formal task brief was published with a Phase A-only authorization gate.
 
 ## Update rule
 
