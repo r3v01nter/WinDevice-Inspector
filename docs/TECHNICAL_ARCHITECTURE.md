@@ -8,7 +8,7 @@
 - Keep the application maintainable as a Windows-first desktop utility.
 - Separate presentation, scan orchestration, data contracts, collectors, persistence, diagnostics, and report generation.
 - Make collection read-only, explicit, cancellable, observable, and independently testable.
-- Preserve source evidence and uncertainty instead of inventing missing values.
+- Preserve source evidence and uncertainty instead of inventing missing values.\n- Enumerate all current PnP devices and capture available hardware/interface state, with explicit completeness accounting.\n- Produce consistent JSON/XLSX/HTML/AI-instructions report packages.
 - Keep scan data local unless the user deliberately exports it.
 
 ## 2. Proposed solution layout
@@ -178,3 +178,38 @@ Build timelines by timestamps but do not equate correlation with causation. Kern
 - Test partial failure and unsupported data sources.
 - Test report previews and user-selected field inclusion.
 - Record Windows build and PowerShell version in integration-test evidence.
+
+
+## 12. Complete device diagnostics architecture requirements
+
+The confirmed product-level scope is defined in [完整设备诊断与报告导出需求](完整设备诊断与报告导出需求.md). The following constraints apply when architecture and collectors are expanded:
+
+### 12.1 Enumeration and device identity
+- Treat Windows PnP enumeration as the baseline for current device coverage; do not limit collection to a fixed list of major hardware classes.
+- Preserve device class, friendly name, manufacturer, hardware/compatible IDs, instance path, parent/location path, bus/interface association, status, Problem Code, and driver metadata where available.
+- Keep current devices distinct from hidden, disconnected/history, virtual, and logical devices. Hidden/history presence alone is not an abnormal result.
+- Define and test device-counting rules to avoid double-counting device nodes, interfaces, controllers, and child devices.
+
+### 12.2 Collector and evidence model
+- Use independently testable collectors for PnP/device status, driver metadata, hardware inventory, supported sensors/health, interface/bus details, and system reliability events.
+- Preserve normalized fields and useful original evidence. Every data item must identify source, timestamp, unit where applicable, actual query/window, collection outcome, and limitations.
+- Add a first-class collection-completeness model. A top-level scan success flag must not conceal per-device or per-source failures.
+- Preserve raw OS problem codes and event identifiers alongside normalized statuses.
+- Separate evidence collection from diagnosis. Any summary/risk label must include the rule/threshold basis and confidence limitations.
+
+### 12.3 Unified diagnostic outcomes
+
+The product-level outcome vocabulary is Normal, Abnormal, Warning, CollectionFailed, Unsupported/Unavailable, and Unknown. Preserve the raw Windows state independently. A missing or unsupported value is never Normal; a failed read is not automatically proof of hardware failure; suspicious values without reliable thresholds are Warning/Unknown rather than fabricated Abnormal.
+
+### 12.4 Reporting architecture
+
+- JSON remains the canonical structured evidence format.
+- XLSX is a human-oriented workbook with one row per device in the all-devices sheet and separate sheets for abnormal/warning devices, drivers, interfaces, sensors, events, historical/hidden devices, and collection gaps.
+- HTML is the readable diagnostic overview.
+- AI analysis instructions are a self-contained Markdown artifact.
+- The export coordinator packages JSON + XLSX + HTML + AI instructions into a ZIP after user review and explicit export action.
+- Export must preserve raw evidence. Any optional redacted/share copy must be clearly distinguished from the original evidence.
+
+### 12.5 Architectural impact gate
+
+The new product baseline may affect project boundaries, Core contracts/schema, Collectors, Diagnostics, Reporting, persistence, test fixtures, and export/privacy flows. Before TASK-0001 Phase B is authorized, the structure proposal must be reviewed against this broader target and the implementation task brief must be updated or superseded without overwriting its historical version. This section does not itself authorize implementation or bypass C-02.
