@@ -6,6 +6,7 @@ This directory contains the maintained product and engineering documentation.
 
 - [任务中心](任务中心/README.md): Chinese project-management entry point and live task navigation.
 - [当前任务](任务中心/当前任务.md): the single current work pointer and direct task brief link.
+- [TASK-0001 正式实现任务书](tasks/TASK-0001_正式实现任务书.md): current standalone execution contract; Phase A structure proposal only is authorized.
 - [任务创建与推进规范](任务中心/任务创建与推进规范.md): reusable task lifecycle and standalone task-brief standard.
 - [任务索引](任务中心/任务索引.md): all tasks and their current states.
 - [审查索引](任务中心/审查索引.md): independent review and verification history.
