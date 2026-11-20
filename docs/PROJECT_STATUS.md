@@ -4,7 +4,7 @@
 - Repository: https://github.com/r3v01nter/WinDevice-Inspector
 - Default branch: main
 - Current stage: Repository foundation and project-management workflow established; first software implementation task remains pending production.
-- Current management item: WDI-AUDIT-0001 R3 — R2 reviewed; targeted revisions requested.
+- Current management item: WDI-AUDIT-0001 R3 — delivery received; independent document review passed; awaiting the owner's explicit acceptance.
 - Application implementation: Not started / no application code accepted.
 - Current software milestone: Phase 1 — First runnable vertical slice.
 
@@ -35,7 +35,7 @@ For the live task state, use the Chinese [任务中心](任务中心/README.md),
 | Task brief and completion receipt templates | Present |
 | Chinese task center | Established with current-task pointer and indexes |
 | Review and issue directories | Established with README guidance and templates |
-| WDI-AUDIT-0001 | R1 archived; R2 archived with rework required; R3 requested |
+| WDI-AUDIT-0001 | R1/R2/R3 archived; R3 independent review passed; awaiting owner acceptance |
 | TASK-0001 | Task brief exists; pending production |
 | Source/test directories | Placement guidance only; implementation pending |
 
@@ -69,6 +69,6 @@ Added a project overview and repository structure guide, aligned architecture do
 ### 2026-11-20 — Chinese task center and collaboration navigation
 Added the Chinese task center, current-task pointer, task/review indexes, review and issue guidance, and synchronized repository documentation with the single `DELIVERY/INBOX/待交付/` workflow.
 
-## Update rule
+### 2026-11-20 — WDI-AUDIT-0001 R3 review\nReceived the eight-file R3 delivery, passed the six targeted revision checks, archived the original package and review report, and set the task to awaiting owner acceptance. This does not close the task or start TASK-0001.\n\n## Update rule
 
 Update this file whenever a milestone, architecture decision, accepted delivery, or release status changes. Do not mark work complete without evidence.
