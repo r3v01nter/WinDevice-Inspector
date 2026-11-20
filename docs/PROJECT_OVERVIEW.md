@@ -2,7 +2,7 @@
 
 ## 1. One-sentence definition
 
-WinDevice Inspector is a Windows desktop tool that lets a user deliberately collect a structured snapshot of device, hardware, driver, Windows, and reliability evidence, keep it locally, and prepare diagnostic material for human-reviewed AI assistance.
+WinDevice Inspector is a Windows desktop tool for one-click complete device diagnostics: it deliberately enumerates Windows-recognized devices, collects available hardware/device/interface/driver/sensor and reliability evidence, preserves gaps and raw sources, and exports a report package for human review and AI analysis.
 
 ## 2. Problem being addressed
 
@@ -109,3 +109,8 @@ See [Technical Architecture](TECHNICAL_ARCHITECTURE.md) and [ADR-0001](decisions
 ## 10. Current project state
 
 The product baseline and first implementation task are documented. The repository is in the foundation/handoff stage; no application code has yet passed acceptance. See [Project Status](PROJECT_STATUS.md).
+
+
+## 11. 完整设备诊断产品基线
+
+项目负责人已确认的详细产品要求见[完整设备诊断与报告导出需求](完整设备诊断与报告导出需求.md)。该需求将设备管理器/PnP 全设备枚举作为基础，并扩展至硬件状态、接口/总线、驱动、可读取传感器、存储健康及系统可靠性证据。所有采集缺口、可疑值和失败都必须出现在报告中。该产品方向不改变当前 TASK-0001 阶段授权；阶段 B 前必须完成架构影响评估和任务书更新。
