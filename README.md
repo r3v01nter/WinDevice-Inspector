@@ -4,12 +4,13 @@
 
 WinDevice Inspector is a Windows desktop application project focused on collecting hardware, device, driver, operating-system, and reliability evidence in a structured way. It keeps scan history locally and helps users prepare diagnostic briefs for an AI assistant of their choice.
 
-> **Project stage:** repository foundation and project-management workflow established. The Chinese task center is the project-management entry point. WDI-AUDIT-0001 R3 has passed independent document review and is awaiting owner acceptance; TASK-0001 is pending production. No application implementation has been accepted yet.
+> **Project stage:** repository foundation and project-management workflow established. The Chinese task center is the project-management entry point. WDI-AUDIT-0001 R3 has passed independent review, been accepted by the owner, and is closed. TASK-0001 is in pre-start decision preparation; implementation has not started. No application implementation has been accepted yet.
 
 ## Project management — start here
 
 - **[任务中心](docs/任务中心/README.md)** — main project-management entry point.
-- [当前任务](docs/任务中心/当前任务.md) — the single current work pointer and current task brief.
+- [当前任务](docs/任务中心/当前任务.md) — the single current work pointer.
+- [TASK-0001 开工准备与决策确认书](docs/tasks/TASK-0001_开工准备与决策确认书.md) — current standalone decision brief.
 - [任务创建与推进规范](docs/任务中心/任务创建与推进规范.md) — reusable rules for task creation, standalone briefs, progress, review, and archiving.
 - [任务索引](docs/任务中心/任务索引.md) — task status and direct links to briefs and delivery records.
 - [审查索引](docs/任务中心/审查索引.md) — independent review and verification history.
