@@ -121,6 +121,8 @@ The user must preview the actual content and choose which fields/categories to i
 - Before generating a shareable brief/export, show a preview and provide user-controlled inclusion/exclusion for potentially sensitive fields and categories.
 - Do not force blanket redaction that hides information from the user; do not silently include sensitive information either.
 - Raw scan data stays local unless the user explicitly chooses to export/share it.
+- When the user chooses raw JSON export, show a sensitive-information warning before the save dialog. The warning must explain that the file may contain computer/device identifiers, serial numbers, usernames, paths, IP/MAC addresses, and system metadata. Continue opens the save dialog; Cancel stops the export without opening the dialog or writing a file.
+- This warning does not alter, redact, or silently remove fields from the raw evidence.
 - No telemetry or network upload by default.
 
 ## 5. Non-functional requirements
