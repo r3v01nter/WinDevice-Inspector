@@ -10,24 +10,26 @@ The roadmap is staged around reliable, user-controlled evidence collection. The 
 - [x] Confirm local-first privacy and user-controlled sharing.
 - [x] Define Gemini primary producer / ChatGPT technical lead and review workflow.
 - [x] Establish project overview, repository navigation, and file-placement rules.
-- [x] Publish TASK-0001 pre-start decision brief; formal implementation brief pending owner decisions.
+- [x] Publish TASK-0001 standalone formal task brief and record owner decisions.
+- [ ] Approve the Phase 1 minimal project/module structure and Persistence boundary (C-02).
 - [ ] Select project license.
 - [ ] Verify owner development environment.
 
 ## Phase 1 — First runnable vertical slice
 
-- [ ] Create solution and minimal WPF project structure.
-- [ ] Establish versioned scan/result contracts.
+- [ ] Create solution and minimal WPF project structure (only after C-02 approval).
+- [ ] Establish complete Schema v1 scan/result contracts, including time-zone context, application version, category duration where measurable, and actual query/collection parameters.
 - [ ] Implement pre-scan notice and explicit confirmation.
 - [ ] Prove no scan starts at application startup or without user confirmation.
-- [ ] Implement PowerShell child-process runner with timeout, cancellation, JSON output, stdout/stderr capture, and exit-code handling.
+- [ ] Implement PowerShell child-process runner supporting both PowerShell 7 and Windows PowerShell 5.1, with test evidence for each version.
+- [ ] Implement timeout, cancellation, JSON output, stdout/stderr capture, and exit-code handling.
 - [ ] Implement initial collectors: OS, computer, CPU, motherboard/BIOS, memory, GPU, disks, network, and PnP problem devices.
 - [ ] Display progress and per-category outcomes.
 - [ ] Save completed scans locally and show a basic history list.
-- [ ] Allow explicit user-selected JSON export.
+- [ ] Allow explicit user-selected JSON export with a pre-export sensitive-information warning.
 - [ ] Add fixture-based tests and verify non-admin behavior.
 
-**Exit criteria:** on Windows 11 x64, a user can deliberately start and confirm a read-only scan, inspect structured results, save the result locally, reopen it from history, and export JSON. No scan runs without consent.
+**Exit criteria:** on Windows 11 x64, a user can deliberately start and confirm a read-only scan, inspect structured results, save the result locally, reopen it from history, and export JSON. No scan runs without consent; both PowerShell versions have test evidence; raw export cancellation performs no write.
 
 ## Phase 2 — Inventory and history MVP
 
