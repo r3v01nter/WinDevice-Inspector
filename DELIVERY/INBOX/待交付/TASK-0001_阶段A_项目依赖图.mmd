@@ -1,0 +1,52 @@
+flowchart TD
+    %% WinDevice Inspector - TASK-0001 Stage A Project & Module Dependency Graph
+    %% Nodes strictly match TASK-0001_阶段A_项目结构方案.md (Recommended Option 1; C-02 pending approval)
+
+    subgraph Phase1_Src["Phase 1 源码项目（TASK-0001 阶段 B 拟建）"]
+        APP["WinDeviceInspector.App<br/>(net10.0-windows / WPF)<br/>空状态首页、确认弹窗、历史浏览、导出提示与保存框"]
+        CORE["WinDeviceInspector.Core<br/>(net10.0 / 纯类库，零 WPF 依赖)<br/>Schema v1 契约与校验、服务层确认门禁、编排器、导出门禁、核心接口"]
+        COLL["WinDeviceInspector.Collectors<br/>(net10.0-windows)<br/>PowerShell 7 & 5.1 双版本 Runner、只读采集脚本、9 类解析"]
+        PERS["WinDeviceInspector.Persistence<br/>(net10.0 / C-02 推荐独立项目)<br/>LocalAppData 历史存储、损坏容错、原始 JSON 写出<br/>(若批准方案 2 则并入 Core/Persistence)"]
+    end
+
+    subgraph Phase1_Tests["Phase 1 测试项目（TASK-0001 阶段 B 拟建）"]
+        TEST_CORE["WinDeviceInspector.Core.Tests<br/>(net10.0 / xUnit)<br/>确认门禁、Schema v1、导出提示、历史容错单元测试"]
+        TEST_COLL["WinDeviceInspector.Collectors.Tests<br/>(net10.0-windows / xUnit)<br/>JSON/异常解析 + PS 7 & 5.1 双版本集成测试"]
+    end
+
+    subgraph Future_Deferred["后续阶段拆分项目（Phase 1 暂不创建）"]
+        DIAG["WinDeviceInspector.Diagnostics<br/>[Phase 3 触发]<br/>事件日志、WHEA/Bugcheck/RAC/WER 时间线"]
+        REPT["WinDeviceInspector.Reporting<br/>[Phase 4 触发]<br/>HTML/TXT 报告、AI 诊断简报与字段勾选预览"]
+    end
+
+    %% Allowed Compile-Time & Composition Dependencies (Strictly Acyclic DAG)
+    APP -->|调用接口与编排器| CORE
+    APP -->|组合根装配具体实现| COLL
+    APP -->|组合根装配存储与写出| PERS
+
+    COLL -->|实现 IDeviceCollector / 使用 Schema v1| CORE
+    PERS -->|实现 IScanHistoryStore & IRawJsonExporter| CORE
+
+    TEST_CORE -->|单元测试| CORE
+    TEST_CORE -->|临时目录持久化测试| PERS
+    TEST_COLL -->|契约断言| CORE
+    TEST_COLL -->|解析与双版本 PS 测试| COLL
+
+    %% Deferred Future Dependencies (Dashed)
+    DIAG -.->|Phase 3 仅依赖 Core| CORE
+    REPT -.->|Phase 4 仅依赖 Core| CORE
+
+    %% Explicit Architectural Boundary Notes
+    RULE["强制依赖红线（禁止违规边）：<br/>1. 严禁循环依赖<br/>2. Core 严禁依赖 App/WPF、Collectors 或 Persistence<br/>3. Persistence 与 Collectors 互不依赖（读历史绝不触发采集）"]
+
+    classDef active fill:#eef6ff,stroke:#1d4ed8,stroke-width:2px,color:#0f172a
+    classDef pending fill:#fef9c3,stroke:#b45309,stroke-width:2px,color:#0f172a
+    classDef test fill:#ecfdf5,stroke:#047857,stroke-width:2px,color:#0f172a
+    classDef future fill:#f8fafc,stroke:#64748b,stroke-width:1.5px,stroke-dasharray: 5 5,color:#475569
+    classDef rule fill:#fef2f2,stroke:#b91c1c,stroke-width:1.5px,color:#7f1d1d
+
+    class APP,CORE,COLL active
+    class PERS pending
+    class TEST_CORE,TEST_COLL test
+    class DIAG,REPT future
+    class RULE rule
