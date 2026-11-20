@@ -8,6 +8,7 @@ Each archived package must include a README that states its review and acceptanc
 
 - [WDI-AUDIT-0001 R1](WDI-AUDIT-0001/): original first-round delivery and review report; rework required.
 - [WDI-AUDIT-0001 R2](WDI-AUDIT-0001/R2/): original second-round delivery and R2 review report; rework required for R3.
+- [WDI-AUDIT-0001 R3](WDI-AUDIT-0001/R3/): original third-round delivery and R3 review report; review passed, awaiting owner acceptance.
 
 ## Rules
 
