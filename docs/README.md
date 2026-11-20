@@ -38,7 +38,7 @@ This directory contains the maintained product and engineering documentation.
 
 ## Document precedence
 
-1. Confirmed product decisions in `PRODUCT_REQUIREMENTS.md`.
+1. Confirmed product decisions in `PRODUCT_REQUIREMENTS.md` and its detailed scope document `完整设备诊断与报告导出需求.md`.
 2. Accepted architecture decision records in `decisions/`.
 3. Current technical architecture.
 4. The active task brief, which must be corrected if it conflicts with a higher-level decision.
