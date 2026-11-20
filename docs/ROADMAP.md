@@ -10,7 +10,7 @@ The roadmap is staged around reliable, user-controlled evidence collection. The 
 - [x] Confirm local-first privacy and user-controlled sharing.
 - [x] Define Gemini primary producer / ChatGPT technical lead and review workflow.
 - [x] Establish project overview, repository navigation, and file-placement rules.
-- [x] Publish TASK-0001 implementation brief.
+- [x] Publish TASK-0001 pre-start decision brief; formal implementation brief pending owner decisions.
 - [ ] Select project license.
 - [ ] Verify owner development environment.
 
