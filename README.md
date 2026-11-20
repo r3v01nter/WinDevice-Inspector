@@ -29,7 +29,7 @@ WinDevice Inspector is a Windows desktop application project focused on one-clic
 | Collection backend | Controlled, read-only PowerShell child process |
 | Scan behavior | Manual start + explicit confirmation every time |
 | Storage | Local scan history; versioned JSON |
-| Diagnostic output | Full and focused AI diagnostic briefs |
+| Diagnostic output | ZIP report: JSON + XLSX + HTML + AI analysis instructions |
 | Distribution | Portable package + Windows installer |
 | Network behavior | No automatic upload, telemetry, or AI-provider connection |
 | Repair behavior | No automatic repair or driver modification |
@@ -40,7 +40,7 @@ WinDevice Inspector is a Windows desktop application project focused on one-clic
 - Collect Windows configuration and reliability evidence, including relevant event logs, unexpected shutdowns, bugchecks, WHEA, Reliability Monitor/RAC, and WER data as supported.
 - Preserve collection sources, timestamps, warnings, and partial-failure states.
 - Save scan snapshots locally and let users inspect previous scans.
-- Generate full or issue-focused diagnostic briefs locally, for users to review and share manually.
+- Generate full or issue-focused diagnostic report packages locally, for users to review and share manually.\n- Export complete JSON evidence, an Excel device workbook, an HTML overview, and AI analysis instructions in one ZIP.
 
 ## What it will not do
 
