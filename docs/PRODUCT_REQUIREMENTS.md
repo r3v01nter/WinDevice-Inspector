@@ -106,7 +106,8 @@ The user must preview the actual content and choose which fields/categories to i
 
 - Save scan results locally in a documented, versioned format.
 - JSON is the canonical structured format.
-- Support readable HTML, XLSX workbook, and plain-text/Markdown output.\n- Package canonical JSON, XLSX, HTML, and AI analysis instructions into a user-exported ZIP.
+- Support readable HTML, XLSX workbook, and plain-text/Markdown output.
+- Package canonical JSON, XLSX, HTML, and AI analysis instructions into a user-exported ZIP.
 - Retain scan timestamps, collector version, schema version, and category outcomes.
 - First release must provide a local history list and allow opening a previous scan.
 - Scan comparison may be implemented after reliable history persistence; it is not a prerequisite for the first vertical slice.
