@@ -45,3 +45,8 @@ This directory contains the maintained product and engineering documentation.
 5. Roadmap and status summaries.
 
 The task center tracks work status; it does not override product requirements or accepted architecture decisions. If a contradiction is found, stop and report it. Do not silently choose a new product behavior.
+
+
+## Confirmed product baseline
+
+- [完整设备诊断与报告导出需求](完整设备诊断与报告导出需求.md): detailed confirmed scope for device enumeration, hardware state, diagnostic outcomes, collection completeness, and AI-ready ZIP reports.
