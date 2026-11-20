@@ -1,14 +1,14 @@
 # WinDevice Inspector
 
-**A user-controlled Windows device and system evidence collector.**
+**A user-controlled Windows device diagnostics and AI-ready report generator.**
 
-WinDevice Inspector is a Windows desktop application project focused on collecting hardware, device, driver, operating-system, and reliability evidence in a structured way. It keeps scan history locally and helps users prepare diagnostic briefs for an AI assistant of their choice.
+WinDevice Inspector is a Windows desktop application project focused on one-click, comprehensive collection of Windows-recognized devices, hardware state, interfaces, drivers, supported sensor/health data, and operating-system reliability evidence. It preserves collection gaps and raw evidence, then exports JSON, XLSX, HTML, and AI analysis instructions as a report package.
 
 > **Project stage:** repository foundation and project-management workflow established. The Chinese task center is the project-management entry point. WDI-AUDIT-0001 R3 has passed independent review, been accepted by the owner, and is closed. TASK-0001 formal task brief is published and awaiting the Phase A project-structure proposal. Phase B coding is not authorized until the owner approves the project boundary. No application implementation has been accepted yet.
 
 ## Project management — start here
 
-- **[任务中心](docs/任务中心/README.md)** — main project-management entry point.
+- **[任务中心](docs/任务中心/README.md)** — main project-management entry point.\n- **[完整设备诊断与报告导出需求](docs/完整设备诊断与报告导出需求.md)** — confirmed product scope and report-package requirements.
 - [当前任务](docs/任务中心/当前任务.md) — the single current work pointer.
 - [TASK-0001 正式实现任务书](docs/tasks/TASK-0001_正式实现任务书.md) — current standalone task brief; Phase A proposal only is authorized.
 - [TASK-0001 开工准备与决策确认书](docs/tasks/TASK-0001_开工准备与决策确认书.md) — historical record of the owner's four decisions.
@@ -93,3 +93,10 @@ See [AI collaboration workflow](docs/AI_COLLABORATION.md) and the [任务中心]
 ## License
 
 No license has been selected. Until a license is added, do not assume that the source may be reused, modified, or redistributed.
+
+
+## Complete device diagnostics direction
+
+The confirmed product target is comprehensive one-click device diagnostics, not a limited inventory summary. The application should enumerate all currently available PnP devices, collect supported hardware/interface/driver/sensor and reliability evidence, report every collection gap, and export a ZIP containing canonical JSON, an XLSX device workbook, an HTML overview, and AI analysis instructions. See [完整设备诊断与报告导出需求](docs/完整设备诊断与报告导出需求.md).
+
+This product direction does not change the current TASK-0001 Phase A-only authorization. C-02 approval and the explicit Phase B gate remain in force; the Phase B task brief must first reconcile the expanded product scope.
