@@ -4,11 +4,11 @@
 - Product: WinDevice Inspector
 - Target: Windows desktop
 - Initial platform: Windows 11 x64
-- Release focus: user-controlled evidence collection, local history, and AI-ready diagnostic task generation
+- Release focus: comprehensive device/hardware state collection, reliability evidence, local history, and AI-ready diagnostic report packages
 
 ## 1. Product definition
 
-WinDevice Inspector is a local-first Windows desktop utility. It collects a broad, evidence-based snapshot of hardware, devices, drivers, Windows configuration, reliability records, and system/application errors. It organizes the evidence and generates diagnostic briefs that the user can provide to an AI assistant.
+WinDevice Inspector is a local-first Windows desktop utility centered on one-click complete device diagnostics. It aims to enumerate Windows-recognized devices comprehensively and collect hardware identity/state, PnP and interface status, drivers, supported sensors and storage health, plus Windows reliability/error evidence. It preserves source evidence and collection gaps, then exports a reviewable report package that the user can provide to an AI assistant. The detailed confirmed scope is maintained in [完整设备诊断与报告导出需求](完整设备诊断与报告导出需求.md).
 
 The application is an evidence collector and organizer. It is not an autonomous repair tool and does not need to connect to an AI provider.
 
@@ -160,3 +160,16 @@ The user must preview the actual content and choose which fields/categories to i
 - Local scan history can be viewed and deleted by the user.
 - Shareable output is previewable and the user controls sensitive-field inclusion.
 - The application performs no system modification during collection.
+
+
+## 8. 已确认的完整设备诊断产品方向（2026-11-20）
+
+项目负责人已确认以「完整设备诊断与报告导出」作为产品核心方向。该需求文档是完整设备枚举、硬件状态、接口/总线、驱动、传感器、系统可靠性证据、统一状态模型、采集完整性和报告包的详细基准：
+
+- [完整设备诊断与报告导出需求](完整设备诊断与报告导出需求.md)。
+- 一键完整扫描覆盖 Windows 当前可枚举的全部设备；隐藏、断开和历史设备独立分类。
+- 能可靠读取的数据尽可能完整采集；无法检测、权限不足、采集失败、无效或可疑数值必须显式汇报。
+- 诊断状态统一为正常、异常、警告、采集失败、无法检测/不可用、未知，并保留原始状态和证据。
+- 完整导出包为 JSON + XLSX + HTML + AI 分析说明 Markdown，统一 ZIP 打包。JSON 是规范化机器数据源，Excel 是人工筛选表格，HTML 是可读总览。
+- 一次性传感器快照属于完整扫描范围；持续实时监控仍不属于当前目标。
+- 本需求是产品目标，不自动修改已发布 TASK-0001 的授权范围。阶段 A、C-02 审批和阶段 B 授权门禁继续有效；阶段 B 任务书发布前必须先完成需求对架构、Schema、采集器、报告和测试的影响评估。
