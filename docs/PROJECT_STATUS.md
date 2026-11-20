@@ -3,7 +3,7 @@
 - Project: WinDevice Inspector
 - Repository: https://github.com/r3v01nter/WinDevice-Inspector
 - Default branch: main
-- Current stage: Repository foundation established; TASK-0001 formal task brief published and awaiting Phase A project-structure proposal.
+- Current stage: Repository foundation established; complete device diagnostics product scope confirmed; TASK-0001 Phase A proposal is awaiting independent review and owner decision.
 - Closed management item: WDI-AUDIT-0001 R3 — independent document review passed and the owner explicitly accepted the result on 2026-11-20.
 - Current task: TASK-0001 — First Runnable Vertical Slice; status: ready for Phase A proposal only. Phase B implementation is not authorized until the owner approves C-02.
 - Application implementation: Not started / no application code accepted.
@@ -84,3 +84,14 @@ The owner confirmed C-01=A, C-02=C, C-03=A, and D-07=A. The formal task brief wa
 ## Update rule
 
 Update this file whenever a milestone, architecture decision, accepted delivery, or release status changes. Do not mark work complete without evidence.
+
+
+## 2026-11-20 — Complete device diagnostics product direction confirmed
+
+The project owner confirmed a product target of one-click comprehensive device diagnostics. The scope includes all currently enumerable Windows PnP devices (with hidden/disconnected/history/virtual devices classified separately), hardware identity and state, drivers, interfaces/buses, supported sensors and storage-health data, and system reliability/error evidence. All unsupported, unavailable, suspicious, permission-denied, and failed collection items must be reported with reasons.
+
+The confirmed report package is ZIP containing canonical JSON, XLSX device workbook, HTML overview, and self-contained AI analysis instructions. JSON is the machine-readable evidence source; XLSX is for filtering/review; HTML is the human-readable overview. No automatic AI upload, repair, driver modification, or background scanning is permitted.
+
+Detailed baseline: [完整设备诊断与报告导出需求](完整设备诊断与报告导出需求.md).
+
+**Task gate unchanged:** TASK-0001 remains Phase A only. Its submitted Phase A package must be independently reviewed; C-02 still requires explicit owner approval. The new product scope does not authorize Phase B. Before Phase B authorization, architecture and the execution brief must be reconciled with this expanded product target.
