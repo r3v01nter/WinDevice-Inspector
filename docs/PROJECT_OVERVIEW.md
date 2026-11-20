@@ -76,11 +76,11 @@ One inaccessible or failed source must not invalidate all other collected eviden
 - Reliability/event evidence including unexpected shutdowns, bugchecks, WHEA, RAC, and WER where supported.
 - Full and focused AI diagnostic briefs generated locally.
 - User-controlled share preview and field selection.
-- HTML/TXT/JSON exports.
+- Complete ZIP report package: canonical JSON, XLSX device workbook, HTML overview, and AI analysis instructions.
 - Portable package and Windows installer.
 
 ### Later possibilities — not committed to V1
-- Live sensor monitoring.
+- Continuous live sensor monitoring (single-scan sensor snapshots are in scope).
 - Optional online AI integration.
 - Advanced scan comparison and visualization.
 - Automated remediation or driver management (requires a separate product/security decision; not part of current scope).
@@ -103,7 +103,7 @@ See [Technical Architecture](TECHNICAL_ARCHITECTURE.md) and [ADR-0001](decisions
 - Automatic uploads, telemetry, or cloud synchronization.
 - Automatic root-cause claims.
 - Driver or system repair.
-- Live monitoring in the first release.
+- Continuous live monitoring (single-scan sensor snapshots are in scope).
 - Stress testing or benchmark suites.
 
 ## 10. Current project state
