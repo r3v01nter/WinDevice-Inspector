@@ -8,7 +8,9 @@
 - Keep the application maintainable as a Windows-first desktop utility.
 - Separate presentation, scan orchestration, data contracts, collectors, persistence, diagnostics, and report generation.
 - Make collection read-only, explicit, cancellable, observable, and independently testable.
-- Preserve source evidence and uncertainty instead of inventing missing values.\n- Enumerate all current PnP devices and capture available hardware/interface state, with explicit completeness accounting.\n- Produce consistent JSON/XLSX/HTML/AI-instructions report packages.
+- Preserve source evidence and uncertainty instead of inventing missing values.
+- Enumerate all current PnP devices and capture available hardware/interface state, with explicit completeness accounting.
+- Produce consistent JSON/XLSX/HTML/AI-instructions report packages.
 - Keep scan data local unless the user deliberately exports it.
 
 ## 2. Proposed solution layout
