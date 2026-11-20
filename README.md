@@ -40,7 +40,8 @@ WinDevice Inspector is a Windows desktop application project focused on one-clic
 - Collect Windows configuration and reliability evidence, including relevant event logs, unexpected shutdowns, bugchecks, WHEA, Reliability Monitor/RAC, and WER data as supported.
 - Preserve collection sources, timestamps, warnings, and partial-failure states.
 - Save scan snapshots locally and let users inspect previous scans.
-- Generate full or issue-focused diagnostic report packages locally, for users to review and share manually.\n- Export complete JSON evidence, an Excel device workbook, an HTML overview, and AI analysis instructions in one ZIP.
+- Generate full or issue-focused diagnostic report packages locally, for users to review and share manually.
+- Export complete JSON evidence, an Excel device workbook, an HTML overview, and AI analysis instructions in one ZIP.
 
 ## What it will not do
 
