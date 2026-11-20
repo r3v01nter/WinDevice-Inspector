@@ -1,6 +1,6 @@
 # Roadmap — WinDevice Inspector
 
-The roadmap is staged around reliable, user-controlled evidence collection. The application must never scan automatically or repair the system.
+The roadmap is staged around one-click, comprehensive, user-controlled device diagnostics and AI-ready evidence exports. The application must never scan automatically or repair the system. The detailed product baseline is [完整设备诊断与报告导出需求](完整设备诊断与报告导出需求.md).
 
 ## Phase 0 — Product and repository foundation
 
@@ -82,3 +82,38 @@ The roadmap is staged around reliable, user-controlled evidence collection. The 
 - Benchmarking and stress testing.
 - Advanced hardware telemetry requiring vendor-specific interfaces.
 - Any automatic, scheduled, or background scan mode.
+
+
+## Product direction update — 2026-11-20
+
+The project owner confirmed that the product's target is comprehensive one-click device diagnostics, not merely a short inventory scan. The following capability sequence is the authoritative expansion of the roadmap; older phase bullets should be interpreted in this order and must not be used to narrow the confirmed product scope.
+
+### Comprehensive device coverage
+- Enumerate all currently present Windows PnP devices and classes, including unknown/problem devices.
+- Classify hidden, disconnected, historical, virtual, and logical devices separately.
+- Collect device IDs, instance paths, parent/location relationships, status, Problem Codes, driver metadata, and available interface/bus details.
+- Expand hardware coverage across PCI/PCIe, USB, storage controllers, network, audio, display, input, camera, biometric, power, and other device classes.
+
+### Hardware telemetry and interface health
+- Collect supported CPU/GPU/motherboard/memory/storage/network sensor snapshots.
+- Collect SMART/NVMe health and error information where exposed by the controller/driver.
+- Inspect supported PCI/PCIe, USB, SATA/NVMe, network, audio, and display interface state.
+- Record source, unit, timestamp, validity, threshold basis, and hardware limitations for each value.
+- Explicitly report unsupported sensors, inaccessible interfaces, suspicious values, and failed reads.
+
+### Reliability and error evidence
+- Collect configurable-window System/Application events, unexpected shutdowns/restarts, BugCheck, WHEA, storage/filesystem/controller, PCIe, USB, display, network, and device-reset evidence.
+- Discover Reliability Monitor/RAC and WER records where supported.
+- Correlate evidence by time without asserting unsupported causality.
+
+### Complete report package and AI handoff
+- Canonical structured JSON with raw evidence, device records, statuses, sources, and collection completeness.
+- XLSX workbook with overview, all devices, abnormal/warning devices, drivers, interfaces, sensors, events, and collection gaps.
+- HTML diagnostic overview and detailed evidence views.
+- Self-contained AI analysis instructions requiring evidence-based reasoning and explicit uncertainty.
+- ZIP packaging, preview, and user-controlled sensitive-field inclusion.
+
+### Stabilization and distribution
+- After collection and report-package acceptance: portable package, Windows installer, CI, accessibility/localization, security/privacy review, and release process.
+
+Continuous live monitoring, automatic repair, driver management, stress testing, online AI integration, automatic upload, and background/scheduled scanning remain outside the confirmed scope.
