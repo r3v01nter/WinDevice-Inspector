@@ -1,119 +1,110 @@
 # Roadmap — WinDevice Inspector
 
-The roadmap is staged around one-click, comprehensive, user-controlled device diagnostics and AI-ready evidence exports. The application must never scan automatically or repair the system. The detailed product baseline is [完整设备诊断与报告导出需求](完整设备诊断与报告导出需求.md).
+本路线图以项目负责人已确认的[完整设备诊断与报告导出需求](完整设备诊断与报告导出需求.md)为产品目标。所有扫描必须由用户主动发起并明确确认；采集只读，不自动修复、不自动上传。
 
-## Phase 0 — Product and repository foundation
+## Phase 0 — 产品与仓库基础
 
-- [x] Confirm product direction and first-release exclusions.
-- [x] Confirm C# / .NET 10 LTS / WPF and Windows 11 x64 baseline.
-- [x] Confirm manual scan + explicit confirmation rule.
-- [x] Confirm local-first privacy and user-controlled sharing.
-- [x] Define Gemini primary producer / ChatGPT technical lead and review workflow.
-- [x] Establish project overview, repository navigation, and file-placement rules.
-- [x] Publish TASK-0001 standalone formal task brief and record owner decisions.
-- [ ] Approve the Phase 1 minimal project/module structure and Persistence boundary (C-02).
-- [ ] Select project license.
-- [ ] Verify owner development environment.
+- [x] 确认 Windows 桌面应用方向及 C# / .NET 10 LTS / WPF 技术基线。
+- [x] 确认 Windows 11 x64 初始目标。
+- [x] 确认手动扫描和每次显式确认规则。
+- [x] 确认本地优先、用户控制导出和隐私提示。
+- [x] 建立 Gemini 生产、ChatGPT 技术指导与独立审查的协作流程。
+- [x] 建立仓库导航、中文任务中心和唯一交付入口。
+- [x] 发布 TASK-0001 正式任务书并记录负责人决策。
+- [x] 确认完整设备诊断与 JSON/XLSX/HTML/AI 说明 ZIP 报告包的产品方向。
+- [ ] 审查 TASK-0001 阶段 A 交付。
+- [ ] 负责人批准 C-02 项目/模块边界。
+- [ ] 确认许可证。
+- [ ] 核验负责人 Windows/.NET/PowerShell 开发环境。
 
-## Phase 1 — First runnable vertical slice
+## Phase 1 — 首个可运行垂直切片（TASK-0001）
 
-- [ ] Create solution and minimal WPF project structure (only after C-02 approval).
-- [ ] Establish complete Schema v1 scan/result contracts, including time-zone context, application version, category duration where measurable, and actual query/collection parameters.
-- [ ] Implement pre-scan notice and explicit confirmation.
-- [ ] Prove no scan starts at application startup or without user confirmation.
-- [ ] Implement PowerShell child-process runner supporting both PowerShell 7 and Windows PowerShell 5.1, with test evidence for each version.
-- [ ] Implement timeout, cancellation, JSON output, stdout/stderr capture, and exit-code handling.
-- [ ] Implement initial collectors: OS, computer, CPU, motherboard/BIOS, memory, GPU, disks, network, and PnP problem devices.
-- [ ] Display progress and per-category outcomes.
-- [ ] Save completed scans locally and show a basic history list.
-- [ ] Allow explicit user-selected JSON export with a pre-export sensitive-information warning.
-- [ ] Add fixture-based tests and verify non-admin behavior.
+仅在阶段 A 独立审查、负责人批准 C-02、阶段 B 新任务书发布后开始。
 
-**Exit criteria:** on Windows 11 x64, a user can deliberately start and confirm a read-only scan, inspect structured results, save the result locally, reopen it from history, and export JSON. No scan runs without consent; both PowerShell versions have test evidence; raw export cancellation performs no write.
+- [ ] 创建最小解决方案和 WPF 项目结构。
+- [ ] 建立完整、可版本化的扫描结果 Schema 和基础状态模型。
+- [ ] 实现扫描前范围说明、敏感信息提示和显式确认门禁。
+- [ ] 证明启动、打开历史、取消确认均不会启动扫描。
+- [ ] 实现受控 PowerShell 子进程，支持 PowerShell 7 与 Windows PowerShell 5.1，并分别提供测试证据。
+- [ ] 实现超时、取消、stdout/stderr、JSON、退出码和错误处理。
+- [ ] 实现首批基础采集：OS、计算机、CPU、主板/BIOS、内存、GPU、磁盘、网络和 PnP 问题设备。
+- [ ] 展示扫描进度和逐类别采集结果。
+- [ ] 保存本地扫描历史并支持基本浏览。
+- [ ] 实现原始 JSON 导出前敏感信息警告；取消不得打开保存对话框或写文件。
+- [ ] 加入合成数据测试并验证普通用户权限下的行为。
 
-## Phase 2 — Inventory and history MVP
+**退出条件：** Windows 11 x64 上用户可以主动确认并执行只读扫描，查看结构化结果、保存并重新打开历史记录、显式导出 JSON；扫描确认门禁有效；PowerShell 7 与 5.1 均有独立测试证据。
 
-- [ ] Expand hardware/device coverage: monitors/EDID, audio, Bluetooth, USB, detailed drivers, storage interfaces, and supported health metadata.
-- [ ] Improve history browsing and user-controlled deletion.
-- [ ] Add reliable scan-to-scan comparison.
-- [ ] Add readable HTML and TXT reports.
-- [ ] Add actual-content preview and user-controlled field/category inclusion before sharing.
+## Phase 2 — 全量设备枚举与设备状态诊断
 
-**Exit criteria:** users can inspect broad inventory, browse local scans, compare snapshots, and control what leaves the machine.
+- [ ] 扩展至 Windows 当前可枚举的全部 PnP 设备类别，不局限于首批核心硬件。
+- [ ] 采集设备类别、友好名称、制造商、Hardware ID、Compatible ID、Instance Path、父子关系/位置路径和总线信息。
+- [ ] 采集设备状态、Problem Code、启动/配置状态及可用的资源信息。
+- [ ] 采集驱动提供商、版本、日期、INF、签名状态和设备关联。
+- [ ] 将隐藏、断开、历史、虚拟和逻辑设备单独分类，避免误报。
+- [ ] 扩展 PCI/PCIe、USB、存储控制器、网络、音频、显示、输入、摄像头、生物识别、电源及其他设备类别。
+- [ ] 定义设备去重、设备计数和覆盖率统计口径。
 
-## Phase 3 — Reliability and error evidence
+**退出条件：** 所有当前枚举到的设备均有独立记录；能判定的给出明确状态，证据不足的给出未知/无法检测及原因；历史设备不会混入当前设备故障统计。
 
-- [ ] System and Application event-log collection with visible configurable lookback.
-- [ ] Unexpected shutdown and restart timeline.
-- [ ] Bugcheck and WHEA event collection.
-- [ ] Reliability Monitor/RAC data discovery.
-- [ ] WER report discovery and safe metadata extraction.
-- [ ] Event correlation with explicit evidence/uncertainty labels.
+## Phase 3 — 硬件状态、传感器与接口健康
 
-**Exit criteria:** the app can produce an evidence-based reliability timeline without asserting unsupported root causes.
+- [ ] 采集受支持的 CPU/GPU/主板/内存/存储/网络传感器快照。
+- [ ] 采集 SMART/NVMe 健康、介质错误和控制器错误信息（接口支持时）。
+- [ ] 采集 PCI/PCIe、USB、SATA/NVMe、网络、音频和显示接口状态及可用链路参数。
+- [ ] 采集电池、电源和主板暴露的电压/电流/功耗/风扇数据（适用时）。
+- [ ] 为每项数值记录单位、来源、时间戳、读取方法、有效性、阈值依据和限制。
+- [ ] 区分硬件不支持、权限不足、接口不可用、读取失败和可疑数值。
+- [ ] 不把传感器读数伪装成校准测量；不对软件无法测量的电源纹波、瞬态响应等作出结论。
 
-## Phase 4 — AI Diagnostic Brief
+**退出条件：** 所有受支持的状态数据可追溯；可疑值和采集失败有提示；未暴露的数据明确标为无法检测/不可用。
 
-- [ ] Full diagnostic brief.
-- [ ] Focused briefs for restart/BSOD/device/driver/storage/network/application issues.
-- [ ] Preview of exact included content and user-controlled sensitive-field selection.
-- [ ] Copy, TXT, and HTML output.
-- [ ] Prompt quality tests against representative fixtures.
+## Phase 4 — 系统可靠性与硬件异常证据
 
-**Exit criteria:** generated briefs are self-contained, traceable to collected evidence, and usable without an AI integration.
+- [ ] 按用户可见的时间范围采集 System/Application 事件。
+- [ ] 建立异常关机、异常重启和启动/关机时间线。
+- [ ] 采集 BugCheck、蓝屏停止代码和可访问的转储元数据。
+- [ ] 采集 WHEA-Logger 事件及可用的错误来源/严重程度/原始数据。
+- [ ] 采集磁盘、文件系统、存储控制器、PCIe、USB、显示驱动、网络及设备重置/掉线证据。
+- [ ] 发现 Reliability Monitor/RAC 与 WER 记录（系统支持且可访问时）。
+- [ ] 关联事件时明确区分时间相关性与因果结论。
 
-## Phase 5 — Stabilization and distribution
+**退出条件：** 生成可追溯的系统可靠性时间线；保留原始事件 ID 和证据；不凭单一事件断言根因。
 
-- [ ] Portable package.
-- [ ] Windows installer package.
-- [ ] Application logging and crash handling.
-- [ ] Accessibility and localization.
-- [ ] Security/privacy review.
-- [ ] CI build and test workflow.
-- [ ] Documentation, screenshots, release notes, and signed release process.
+## Phase 5 — 完整诊断报告与 AI 交付
 
-**Exit criteria:** both portable and installer distributions can be launched safely and updated according to documented release procedures.
+- [ ] JSON 作为规范化完整证据和原始数据的唯一机器可读基准。
+- [ ] XLSX 工作簿包含诊断总览、全部当前设备、异常设备、警告设备、隐藏/历史设备、驱动、接口、传感器、系统事件、采集失败/无法检测和采集完整性工作表。
+- [ ] HTML 提供人类可读的诊断总览、异常清单、时间线和设备详情。
+- [ ] 生成自包含 AI 分析说明，要求 AI 检查覆盖率、引用证据、区分事实/假设/未知并给出可验证建议。
+- [ ] JSON + XLSX + HTML + AI 分析说明统一打包为 ZIP。
+- [ ] 导出前展示真实内容和敏感信息范围，允许用户选择分享内容。
+- [ ] 提供完整报告与专项报告；完整原始证据不得被静默删改。
+- [ ] 对 Schema、Excel、HTML、ZIP 和 AI 指令建立合成数据测试。
 
-## Later / explicitly deferred
+**退出条件：** 用户可将单个 ZIP 报告包交给 AI；人工可用 Excel 筛选设备；HTML 可快速理解诊断结果；AI 可依据 JSON 和原始证据分析；所有采集缺口均被明确说明。
 
-- Live sensor monitoring (temperature, power, fan speed, clocks).
-- Online AI integrations.
-- Automatic remediation and driver management.
-- Benchmarking and stress testing.
-- Advanced hardware telemetry requiring vendor-specific interfaces.
-- Any automatic, scheduled, or background scan mode.
+## Phase 6 — 稳定化与发布
 
+- [ ] 便携版和 Windows 安装版。
+- [ ] 应用日志、崩溃处理和数据迁移。
+- [ ] 可访问性与本地化。
+- [ ] 安全、隐私和敏感数据审查。
+- [ ] CI 构建与测试。
+- [ ] 文档、截图、版本说明和签名发布流程。
 
-## Product direction update — 2026-11-20
+**退出条件：** 便携版和安装版均可按文档安全安装/运行，数据存储和升级行为经过验证。
 
-The project owner confirmed that the product's target is comprehensive one-click device diagnostics, not merely a short inventory scan. The following capability sequence is the authoritative expansion of the roadmap; older phase bullets should be interpreted in this order and must not be used to narrow the confirmed product scope.
+## 明确不在当前产品范围内
 
-### Comprehensive device coverage
-- Enumerate all currently present Windows PnP devices and classes, including unknown/problem devices.
-- Classify hidden, disconnected, historical, virtual, and logical devices separately.
-- Collect device IDs, instance paths, parent/location relationships, status, Problem Codes, driver metadata, and available interface/bus details.
-- Expand hardware coverage across PCI/PCIe, USB, storage controllers, network, audio, display, input, camera, biometric, power, and other device classes.
+- 连续实时硬件监控面板（单次扫描读取受支持的传感器快照属于范围内）。
+- 自动修复、驱动安装/更新/禁用/卸载。
+- 压力测试、基准测试、超频和系统调优。
+- 自动、后台、定时或无人值守扫描。
+- 自动上传、遥测、云同步或在线 AI 服务连接。
+- 仅凭软件判断电源纹波、瞬态响应、物理接触质量或电气安全。
+- 对硬件厂商未公开、固件/驱动未暴露的数据作猜测性填充。
 
-### Hardware telemetry and interface health
-- Collect supported CPU/GPU/motherboard/memory/storage/network sensor snapshots.
-- Collect SMART/NVMe health and error information where exposed by the controller/driver.
-- Inspect supported PCI/PCIe, USB, SATA/NVMe, network, audio, and display interface state.
-- Record source, unit, timestamp, validity, threshold basis, and hardware limitations for each value.
-- Explicitly report unsupported sensors, inaccessible interfaces, suspicious values, and failed reads.
+## 当前任务门禁
 
-### Reliability and error evidence
-- Collect configurable-window System/Application events, unexpected shutdowns/restarts, BugCheck, WHEA, storage/filesystem/controller, PCIe, USB, display, network, and device-reset evidence.
-- Discover Reliability Monitor/RAC and WER records where supported.
-- Correlate evidence by time without asserting unsupported causality.
-
-### Complete report package and AI handoff
-- Canonical structured JSON with raw evidence, device records, statuses, sources, and collection completeness.
-- XLSX workbook with overview, all devices, abnormal/warning devices, drivers, interfaces, sensors, events, and collection gaps.
-- HTML diagnostic overview and detailed evidence views.
-- Self-contained AI analysis instructions requiring evidence-based reasoning and explicit uncertainty.
-- ZIP packaging, preview, and user-controlled sensitive-field inclusion.
-
-### Stabilization and distribution
-- After collection and report-package acceptance: portable package, Windows installer, CI, accessibility/localization, security/privacy review, and release process.
-
-Continuous live monitoring, automatic repair, driver management, stress testing, online AI integration, automatic upload, and background/scheduled scanning remain outside the confirmed scope.
+TASK-0001 阶段 A 三份交付已进入唯一收件入口，待独立审查。负责人仍须明确批准 C-02；在此之前不得开始阶段 B 编码。完整产品需求已确认，但它不会自动授权任何开发阶段。阶段 B 任务书发布前必须将本路线图的完整诊断目标纳入架构、Schema、采集器、报告和测试设计。
