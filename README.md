@@ -8,7 +8,8 @@ WinDevice Inspector is a Windows desktop application project focused on one-clic
 
 ## Project management — start here
 
-- **[任务中心](docs/任务中心/README.md)** — main project-management entry point.\n- **[完整设备诊断与报告导出需求](docs/完整设备诊断与报告导出需求.md)** — confirmed product scope and report-package requirements.
+- **[任务中心](docs/任务中心/README.md)** — main project-management entry point.
+- **[完整设备诊断与报告导出需求](docs/完整设备诊断与报告导出需求.md)** — confirmed product scope and report-package requirements.
 - [当前任务](docs/任务中心/当前任务.md) — the single current work pointer.
 - [TASK-0001 正式实现任务书](docs/tasks/TASK-0001_正式实现任务书.md) — current standalone task brief; Phase A proposal only is authorized.
 - [TASK-0001 开工准备与决策确认书](docs/tasks/TASK-0001_开工准备与决策确认书.md) — historical record of the owner's four decisions.
