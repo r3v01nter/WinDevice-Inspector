@@ -14,7 +14,8 @@ This document defines where project information, implementation source, tests, a
 - `docs/任务中心/`: Chinese task navigation, current task, task index, review index, and development change record.
 - `docs/reviews/`: independent review reports and owner-provided local verification records.
 - `docs/issues/`: confirmed defects and retest records.
-- `DELIVERY/INBOX/待交付/`: the single incoming delivery location.
+- `DELIVERY/LOCAL_STAGING/待上传/`: local-only Gemini downloads; ignored by Git and never committed.
+- `DELIVERY/INBOX/待交付/`: single flat repository delivery inbox, populated by Antigravity on a task/round branch.
 - `DELIVERY/ARCHIVE/`: original delivery packages retained by task and round.
 
 The `src/` and `tests/` directories currently contain placement notes only. TASK-0001 creates the first actual solution and test projects.
@@ -40,17 +41,18 @@ The `src/` and `tests/` directories currently contain placement notes only. TASK
 - Current task and task lifecycle: `任务中心/`.
 - Current verified project summary: `PROJECT_STATUS.md`.
 - Future sequencing: `ROADMAP.md`.
-- AI roles and handoff procedure: `AI_COLLABORATION.md`.
+- AI roles and handoff procedure: `AI_COLLABORATION.md` and `AI_交付操作手册.md`.
 
 If two documents disagree, stop and report the conflict. Do not silently invent a third interpretation. Product requirements and accepted ADRs take precedence over stale task notes; update the task brief before implementation continues.
 
 ## 4. Delivery handling
 
-- Gemini returns a complete delivery package; the owner checks it and places its contents in `DELIVERY/INBOX/待交付/`.
+- Gemini web/App produces complete files or ZIPs; the owner downloads them into local `DELIVERY/LOCAL_STAGING/待上传/`.
+- Antigravity safely checks/extracts the files and pushes them to a dedicated delivery branch, placing package originals in `DELIVERY/INBOX/待交付/`.
+- The local staging directory is Git-ignored. Never add it to a commit.
 - Do not create a second inbox or restore the obsolete `DELIVERY/INBOX/TASK-XXXX/` structure.
-- Do not place real scan exports, credentials, tokens, private keys, or personal files in the repository.
-- ChatGPT reviews the package against the task brief and checks verification evidence.
-- Only accepted source files are integrated into `src/`, tests into `tests/`, and approved documentation into `docs/`.
+- Do not place real scan exports, credentials, tokens, private keys, browser profiles, or personal files in the repository.
+- Code changes remain isolated on the delivery branch until ChatGPT review and the applicable owner approval gates are complete.
 - Preserve original delivery rounds in task-specific archive paths; never overwrite earlier rounds.
 - Keep README placeholders in inbox/archive; Git does not track empty directories.
 
@@ -62,6 +64,6 @@ The following must not be committed:
 - Build output such as `bin/` and `obj/`.
 - IDE/user-specific settings.
 - Logs that may contain machine identifiers or personal paths.
-- Credentials, tokens, certificates/private keys, or browser data.
+- Credentials, tokens, certificates/private keys, browser profiles, or local AI staging contents.
 
 Update the root `.gitignore` when new build tooling is introduced.
