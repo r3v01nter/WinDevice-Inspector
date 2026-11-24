@@ -78,19 +78,21 @@ Architecture decisions are recorded in `docs/decisions/`. Reusable task and comp
 - `src/`: production application and library projects.
 - `tests/`: automated tests, utilities, and synthetic fixtures.
 - `docs/`: product, architecture, roadmap, status, decisions, tasks, templates, task center, reviews, and issues.
-- `DELIVERY/INBOX/待交付/`: the single incoming delivery location.
+- `DELIVERY/LOCAL_STAGING/待上传/`: local-only Gemini downloads; Git-ignored.
+- `DELIVERY/INBOX/待交付/`: single repository delivery inbox, populated by Antigravity on a dedicated branch.
 - `DELIVERY/ARCHIVE/`: original packages retained by task and delivery round.
 
 The `src/` and `tests/` directories initially contain placement guidance only. Gemini should inspect the current repository and the precise files named in the active task brief before creating or modifying the solution structure.
 
 ## Collaboration model
 
-- **Project owner:** product decisions, Windows environment, final acceptance, and manual delivery transfer.
-- **Gemini:** primary implementation producer; follows the standalone task brief and checks only relevant repository files. It returns complete implementation packages and does not directly commit to this repository.
-- **ChatGPT:** technical lead; defines self-contained tasks, guides implementation, reviews code and test evidence, directs revisions, and maintains task/review records.
-- **No unreviewed integration:** delivered code is checked against the task and acceptance criteria before becoming canonical project source.
+- **Project owner:** downloads Gemini output into the local staging folder, starts Antigravity, and verbally triggers ChatGPT when ready for review or the next step. No manual unzip, file copying, Git commit, or push is required.
+- **Gemini web/App (strong models):** primary code producer for complex modules, tests, and refactors; returns complete files/ZIP and a truthful receipt.
+- **Antigravity (currently Gemini 3.8):** local delivery operator; validates and extracts downloaded files, applies authorized changes, runs available build/tests, and commits/pushes a dedicated delivery branch. It must not push `main` or merge.
+- **ChatGPT:** project lead and independent reviewer; prepares tasks, reviews the pushed branch only after the owner explicitly asks, and maintains task/review records.
+- **No automatic acceptance:** a pushed branch is only a submission. Review, local verification, and owner acceptance remain separate gates.
 
-See [AI collaboration workflow](docs/AI_COLLABORATION.md) and the [任务中心](docs/任务中心/README.md).
+See [AI collaboration workflow](docs/AI_COLLABORATION.md), [AI 交付操作手册](docs/AI_交付操作手册.md), and the [任务中心](docs/任务中心/README.md).
 
 ## License
 
