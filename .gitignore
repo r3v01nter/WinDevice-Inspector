@@ -18,6 +18,9 @@ scan-exports/
 *.scan.json
 *.diagnostic-report.html
 
+# Local AI delivery staging (never commit downloaded raw inputs)
+DELIVERY/LOCAL_STAGING/
+
 # Temporary delivery extraction
 *.tmp
 *.log
