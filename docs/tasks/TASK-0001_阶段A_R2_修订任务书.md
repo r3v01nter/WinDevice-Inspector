@@ -5,7 +5,7 @@
 - **任务类型**：阶段 A 方案返修（仅文档，不编码）
 - **当前状态**：待执行
 - **基准分支**：`main`
-- **基准提交**：`ae9512aa4c82665fa37986b5f7ba256652d4b3c2`
+- **基准提交**：`de13ab6b6329a0067561f1051fae2682ecbf12ec`
 - **唯一仓库交付入口**：`DELIVERY/INBOX/待交付/`
 - **本地下载暂存区**：`DELIVERY/LOCAL_STAGING/待上传/`（Git 忽略，不提交）
 - **Antigravity 上传分支**：`delivery/TASK-0001-R2`
