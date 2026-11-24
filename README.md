@@ -4,7 +4,7 @@
 
 WinDevice Inspector is a Windows desktop application project focused on one-click, comprehensive collection of Windows-recognized devices, hardware state, interfaces, drivers, supported sensor/health data, and operating-system reliability evidence. It preserves collection gaps and raw evidence, then exports JSON, XLSX, HTML, and AI analysis instructions as a report package.
 
-> **Project stage:** repository foundation and project-management workflow established. The Chinese task center is the project-management entry point. WDI-AUDIT-0001 R3 has passed independent review, been accepted by the owner, and is closed. TASK-0001 Phase A three-file delivery is in the inbox awaiting independent review. Phase B coding is not authorized until the owner approves C-02. No application implementation has been accepted yet.
+> **Project stage:** repository foundation and project-management workflow established. The Chinese task center is the project-management entry point. WDI-AUDIT-0001 R3 has passed independent review, been accepted by the owner, and is closed. TASK-0001 Phase A R2 architecture revision is awaiting Gemini web/App production. Antigravity will upload the package on a dedicated delivery branch; ChatGPT review starts only when the owner explicitly asks. Phase B coding is not authorized until the owner approves C-02. No application implementation has been accepted yet.
 
 ## Project management — start here
 
