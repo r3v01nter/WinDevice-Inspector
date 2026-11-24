@@ -18,7 +18,8 @@ This directory contains the maintained product and engineering documentation.
 - [Repository Structure](REPOSITORY_STRUCTURE.md): directory responsibilities and naming rules.
 - [Roadmap](ROADMAP.md): staged delivery sequence.
 - [Project Status](PROJECT_STATUS.md): current verified state and next actions.
-- [AI Collaboration](AI_COLLABORATION.md): self-contained task briefs, Gemini production, and ChatGPT review.
+- [AI Collaboration](AI_COLLABORATION.md): Gemini code production, Antigravity delivery, and ChatGPT review.
+- [AI 交付操作手册](AI_交付操作手册.md): exact local staging, packaging, branch, commit, and manual review-trigger procedure.
 
 ## Reference material
 
@@ -35,7 +36,8 @@ This directory contains the maintained product and engineering documentation.
 
 ## Delivery
 
-- [唯一交付入口](../DELIVERY/INBOX/待交付/): owner-reviewed complete delivery files from Gemini.
+- [唯一交付入口](../DELIVERY/INBOX/待交付/): Antigravity pushes each round's complete package to a dedicated delivery branch, in this flat repository inbox.
+- [本地暂存区](../DELIVERY/LOCAL_STAGING/待上传/): local-only Gemini downloads, ignored by Git and never committed.
 - [原始交付归档](../DELIVERY/ARCHIVE/): immutable historical delivery batches.
 
 ## Document precedence
