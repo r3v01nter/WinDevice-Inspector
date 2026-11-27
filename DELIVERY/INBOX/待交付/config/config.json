@@ -1,0 +1,22 @@
+{
+  "toolVersion": "1.0.0",
+  "schemaVersion": "wdi-diag-v1",
+  "collection": {
+    "logLookbackDays": 7,
+    "maxEventsPerCategory": 100,
+    "includeCsvReports": true,
+    "collectAllPnpDevices": true,
+    "collectAllSignedDrivers": true,
+    "outputSubfolderPrefix": "WDI_Diag"
+  },
+  "privacy": {
+    "enabled": true,
+    "redactUserName": true,
+    "redactComputerName": true,
+    "redactIpAddress": true,
+    "redactMacAddress": true,
+    "redactDiskSerial": true,
+    "redactDeviceUniqueId": true,
+    "redactOtherPii": true
+  }
+}
