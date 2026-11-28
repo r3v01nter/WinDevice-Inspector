@@ -37,7 +37,9 @@ This directory contains the maintained product and engineering documentation.
 - `issues/`: confirmed defects and their retest records.
 - `任务中心/`: user-facing project management, workflow, and navigation.
 
-## Delivery\n\n- [交付中心总入口](../DELIVERY/README.md): inbox, review states, templates, and archive lifecycle.
+## Delivery
+
+- [交付中心总入口](../DELIVERY/README.md): inbox, review states, templates, and archive lifecycle.
 
 - [唯一交付入口](../DELIVERY/INBOX/待交付/): Antigravity pushes each round's complete package to a dedicated delivery branch, in this flat repository inbox.
 - [本地暂存区](../DELIVERY/LOCAL_STAGING/待上传/): local-only Gemini downloads, ignored by Git and never committed.
