@@ -2,7 +2,10 @@
 
 This directory contains the maintained product and engineering documentation.
 
-## Start here\n\n- [AI Agent Guide](../AI_AGENT_GUIDE.md): mandatory repository entry point for all agents.\n- [工作流执行规范](工作流/README.md): roles, capability checks, implementation, review, and archive lifecycle.
+## Start here
+
+- [AI Agent Guide](../AI_AGENT_GUIDE.md): mandatory repository entry point for all agents.
+- [工作流执行规范](工作流/README.md): roles, capability checks, implementation, review, and archive lifecycle.
 
 - [任务中心](任务中心/README.md): Chinese project-management entry point and live task navigation.
 - [当前任务](任务中心/当前任务.md): the single current work pointer and direct task brief link.
