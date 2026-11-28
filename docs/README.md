@@ -2,7 +2,7 @@
 
 This directory contains the maintained product and engineering documentation.
 
-## Start here
+## Start here\n\n- [AI Agent Guide](../AI_AGENT_GUIDE.md): mandatory repository entry point for all agents.\n- [工作流执行规范](工作流/README.md): roles, capability checks, implementation, review, and archive lifecycle.
 
 - [任务中心](任务中心/README.md): Chinese project-management entry point and live task navigation.
 - [当前任务](任务中心/当前任务.md): the single current work pointer and direct task brief link.
@@ -34,7 +34,7 @@ This directory contains the maintained product and engineering documentation.
 - `issues/`: confirmed defects and their retest records.
 - `任务中心/`: user-facing project management, workflow, and navigation.
 
-## Delivery
+## Delivery\n\n- [交付中心总入口](../DELIVERY/README.md): inbox, review states, templates, and archive lifecycle.
 
 - [唯一交付入口](../DELIVERY/INBOX/待交付/): Antigravity pushes each round's complete package to a dedicated delivery branch, in this flat repository inbox.
 - [本地暂存区](../DELIVERY/LOCAL_STAGING/待上传/): local-only Gemini downloads, ignored by Git and never committed.
