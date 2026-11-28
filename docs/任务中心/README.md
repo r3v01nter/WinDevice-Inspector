@@ -18,7 +18,8 @@
 - [AI 工作流规范](../工作流/README.md)：角色分工、能力核验、开发、交付、审查与归档闭环。
 - [交付中心](../../DELIVERY/README.md)：唯一收件入口、待审查、审查中、归档和模板。
 
-- [WDI-DIAG-001 R2 返修任务书](../tasks/WDI-DIAG-001_R2_返修任务书.md)：独立诊断采集工具返修任务，默认由 Antigravity + Gemini 4 Hydrogen Extra High 实施。\n- [任务书目录](../tasks/)：每个任务一份完整、独立的任务书。
+- [WDI-DIAG-001 R2 返修任务书](../tasks/WDI-DIAG-001_R2_返修任务书.md)：独立诊断采集工具返修任务，默认由 Antigravity + Gemini 4 Hydrogen Extra High 实施。
+- [任务书目录](../tasks/)：每个任务一份完整、独立的任务书。
 - [开工前决策确认记录](../tasks/TASK-0001_开工准备与决策确认书.md)：记录四项口径的原始确认过程。
 - [中文任务书模板](../templates/任务书模板.md)：新任务书必须按自包含原则编写。
 - [中文完成回执模板](../templates/完成回执模板.md)：生产方交付时填写。
