@@ -1,35 +1,31 @@
-# Delivery Area
+# 交付中心｜DELIVERY
 
-This directory is the controlled handoff area for AI-assisted development work.
+本目录是 WinDevice-Inspector 所有任务交付、独立审查和历史归档的统一管理入口。每轮交付必须可追踪任务编号、轮次、分支、提交、审查状态和最终验收状态。
 
-## Directory layout
+## 入口导航
+- [INBOX/待交付](INBOX/待交付/README.md)：唯一的仓库交付收件入口。
+- [REVIEW/待审查](REVIEW/待审查/README.md)：已提交、等待负责人触发独立审查的状态入口。
+- [REVIEW/审查中](REVIEW/审查中/README.md)：正在进行的独立审查状态说明。
+- [ARCHIVE](ARCHIVE/README.md)：按任务编号/轮次保留原始交付和审查记录。
+- [TEMPLATES](TEMPLATES/README.md)：交付清单、完成回执和归档记录模板导航。
 
-- [`INBOX/待交付/`](INBOX/待交付/): the only user-facing drop location for complete delivery files returned by Gemini.
-- [`ARCHIVE/`](ARCHIVE/): original delivery batches retained by task and round, including batches that need rework.
+## 标准流转
+1. Antigravity 中的 Gemini 4 Hydrogen Extra High 按已批准任务书完成实施与自检，生成完整 ZIP、文件清单、测试证据、完成回执和 SHA-256。
+2. 按任务书创建独立分支，将本轮交付提交到 INBOX/待交付/ 平面入口。
+3. 负责人核对分支、commit SHA 和交付文件后，明确通知 ChatGPT 开始审查。
+4. ChatGPT 实际检查指定分支和文件，更新审查状态；不得仅凭实施者自述作结论。
+5. 需返修时保留本轮原件和报告，等待 Gemini 网页端编写新轮次任务书；不得覆盖旧轮次。
+6. 本轮审查结束后，将完整原始交付和审查报告归档到 ARCHIVE/任务编号/轮次/，更新任务索引、审查索引和归档索引。
+7. 清理本轮已处理的 INBOX/待交付/ 文件，保留 README；清理前必须确认归档副本完整且可读取。
+8. 最终验收必须由项目负责人明确作出。归档、审查通过或分支推送均不自动代表验收。
 
-## Handoff and review workflow
+## 重要规则
+- 每个任务/轮次使用独立交付分支；禁止直接推送 main、强制推送或自行合并。
+- INBOX 保持平面结构，保留原始文件名及 ZIP 内部必要目录结构。
+- 不提交凭据、令牌、浏览器数据、私人文件、真实设备扫描数据或其他敏感信息。
+- REVIEW 是状态/记录区，不要求复制多份源码；审查报告的权威归档位置为对应 ARCHIVE 轮次目录。
+- 本地暂存目录 DELIVERY/LOCAL_STAGING/待上传/ 仅供本机中转，Git 忽略，不属于远端交付中心。
+- 工具不支持某项操作时必须如实报告，不得声称已创建分支、提交、推送或测试。
 
-1. Gemini returns the requested files and a truthful completion note to the project owner.
-2. The owner checks the files and manually uploads the complete delivery contents to `INBOX/待交付/`.
-3. The owner tells ChatGPT the task ID and that the delivery is ready for review.
-4. ChatGPT checks the submitted files against the task brief, acceptance criteria, file integrity, and project constraints.
-5. If changes are required, ChatGPT records the findings and gives a concrete rework list. The revised batch returns through the same inbox; previous originals are not overwritten.
-6. After the review round is processed, ChatGPT preserves the original files and review record under a task-specific archive path, then clears the inbox while retaining README placeholders.
-7. Only approved files may be integrated into canonical project locations such as `src/`, `tests/`, or `docs/`.
-
-## Status definitions
-
-- **Submitted**: the owner has placed files in the inbox. Submission is not acceptance.
-- **Under review**: ChatGPT is checking the package. No files are approved for integration yet.
-- **Rework required**: the package has unresolved issues and must be corrected.
-- **Review passed**: the submitted scope passed its independent review; this is not necessarily final acceptance.
-- **Accepted**: applicable review and verification gates are complete and the owner explicitly approves the result.
-- **Archived**: original files and review records have been preserved. Archiving does not mean accepted.
-
-## Scope and safety
-
-- Gemini prepares and returns files; it does not directly commit or push to this repository in the standard workflow.
-- The project owner controls manual submission and final acceptance.
-- Keep review reports outside the incoming original delivery.
-- Do not place credentials, access tokens, private keys, browser profiles, real machine scan data, or unrelated personal files here.
-- Keep the README placeholders in the inbox and archive directories.
+## 与任务中心的关系
+任务中心记录“做什么、谁负责、目前到哪一步”；交付中心记录“交了什么、在哪里、审查如何、原件如何归档”。两者必须互相链接并保持状态一致。
