@@ -8,6 +8,10 @@ WinDevice Inspector is a Windows desktop application project focused on one-clic
 
 ## Project management — start here
 
+- **[AI Agent Guide](AI_AGENT_GUIDE.md)** — mandatory entry point for Gemini web, Antigravity agents, and ChatGPT.
+- **[交付中心](DELIVERY/README.md)** — single delivery, review, template, and archive management hub.
+- **[工作流执行规范](docs/工作流/README.md)** — role boundaries, capability checks, and end-to-end workflow.
+
 - **[任务中心](docs/任务中心/README.md)** — main project-management entry point.
 - **[完整设备诊断与报告导出需求](docs/完整设备诊断与报告导出需求.md)** — confirmed product scope and report-package requirements.
 - [当前任务](docs/任务中心/当前任务.md) — the single current work pointer.
@@ -75,6 +79,10 @@ Architecture decisions are recorded in `docs/decisions/`. Reusable task and comp
 
 ## Repository layout
 
+- AI_AGENT_GUIDE.md: mandatory AI entry point and role/permission rules.
+- DELIVERY/: unified delivery center with inbox, review status folders, templates, and immutable archive.
+- docs/工作流/: workflow execution rules and capability checklist.
+
 - `src/`: production application and library projects.
 - `tests/`: automated tests, utilities, and synthetic fixtures.
 - `docs/`: product, architecture, roadmap, status, decisions, tasks, templates, task center, reviews, and issues.
@@ -86,13 +94,12 @@ The `src/` and `tests/` directories initially contain placement guidance only. G
 
 ## Collaboration model
 
-- **Project owner:** downloads Gemini output into the local staging folder, starts Antigravity, and verbally triggers ChatGPT when ready for review or the next step. No manual unzip, file copying, Git commit, or push is required.
-- **Gemini web/App (strong models):** primary code producer for complex modules, tests, and refactors; returns complete files/ZIP and a truthful receipt.
-- **Antigravity (currently Gemini 3.8):** local delivery operator; validates and extracts downloaded files, applies authorized changes, runs available build/tests, and commits/pushes a dedicated delivery branch. It must not push `main` or merge.
-- **ChatGPT:** project lead and independent reviewer; prepares tasks, reviews the pushed branch only after the owner explicitly asks, and maintains task/review records.
-- **No automatic acceptance:** a pushed branch is only a submission. Review, local verification, and owner acceptance remain separate gates.
+- **Gemini web/App:** requirements analysis, research, technical alternatives, standalone task briefs, and rework briefs. Do not assume local workspace, terminal, or Git write access.
+- **Antigravity + Gemini 4 Hydrogen Extra High:** default independent implementer; reads the approved task brief, verifies actual capabilities, edits the authorized workspace, runs available tests, and prepares a complete ZIP, receipt, and SHA-256. Git operations are performed only when actually available and authorized.
+- **ChatGPT GPT-6:** independent reviewer, rework coordinator, and archive/index maintainer after the owner explicitly triggers review.
+- **Project owner:** authorizes work, triggers review, and makes final acceptance decisions.
 
-See [AI collaboration workflow](docs/AI_COLLABORATION.md), [AI 交付操作手册](docs/AI_交付操作手册.md), and the [任务中心](docs/任务中心/README.md).
+The model/tool capability must be checked per task. No agent may silently substitute a model, claim an unrun test passed, push main, force-push, merge a PR, or expand the authorized scope. See [AI Agent Guide](AI_AGENT_GUIDE.md), [workflow rules](docs/工作流/README.md), and the [delivery center](DELIVERY/README.md).
 
 ## License
 
