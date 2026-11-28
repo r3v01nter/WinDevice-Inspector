@@ -4,6 +4,8 @@ This directory preserves original delivery batches by task and round, including 
 
 ## Current archive entries
 
+- [AI-WEB-FAST-002 R1](AI-WEB-FAST-002/R1/): original proposal package preserved; independent review requires rework; not approved for implementation.
+
 - [WDI-AUDIT-0001 R1](WDI-AUDIT-0001/): rework required.
 - [WDI-AUDIT-0001 R2](WDI-AUDIT-0001/R2/): rework required for R3.
 - [WDI-AUDIT-0001 R3](WDI-AUDIT-0001/R3/): review passed; owner accepted.
