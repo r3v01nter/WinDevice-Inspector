@@ -8,7 +8,7 @@
 - 基准提交：`af8ba8c787dded04b7f81ec86aa2bc346927e37c`
 - 交付分支：`delivery/WDI-DIAG-001-R2`（从执行时最新 main 创建）
 - 唯一收件入口：`DELIVERY/INBOX/待交付/`
-- 执行方：Gemini 网页端；交付整理：Antigravity；独立审查：ChatGPT；最终验收：项目负责人
+- 规划/任务书维护：Gemini 网页端；独立实施：Antigravity 中的 Gemini 4 Hydrogen Extra High；独立审查：ChatGPT GPT-6；最终验收：项目负责人
 
 ## 1. 目标与边界
 
