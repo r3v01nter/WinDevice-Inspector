@@ -28,7 +28,7 @@
 
 Antigravity 中的 Gemini 4 Hydrogen Extra High 在工作区独立完成 BAT、PowerShell、配置、说明和测试，并生成一个完整 ZIP，不逐个文件发送。完成回执列出实际基准 SHA、文件清单、测试命令/结果、未执行项和已知限制，并提供 ZIP SHA-256。
 
-开工前必须按 docs/工作流/能力核验清单.md 核验模型、仓库、终端、测试、ZIP 和 Git 能力。若 Antigravity 能安全创建分支、提交和推送，则从执行时最新 main 创建 delivery/WDI-DIAG-001-R2，将完整交付放入唯一入口 DELIVERY/INBOX/待交付/；不得推送 main、强推或合并 PR。若 Git 能力不可用，则生成完整 ZIP 和准确的人工操作步骤，不得声称已推送。Gemini 网页端仅负责任务书规划/必要澄清，不与 Antigravity 并行修改同一工作区。负责人明确触发后由 ChatGPT 独立审查。 `delivery/WDI-DIAG-001-R2`。不得推送 main、强推或合并 PR。负责人明确触发后由 ChatGPT 审查。
+开工前必须按 docs/工作流/能力核验清单.md 核验模型、仓库、终端、测试、ZIP 和 Git 能力。若 Antigravity 能安全创建分支、提交和推送，则从执行时最新 main 创建 delivery/WDI-DIAG-001-R2，将完整交付放入唯一入口 DELIVERY/INBOX/待交付/；不得推送 main、强推或合并 PR。若 Git 能力不可用，则生成完整 ZIP 和准确的人工操作步骤，不得声称已推送。Gemini 网页端仅负责任务书规划/必要澄清，不与 Antigravity 并行修改同一工作区。负责人明确触发后由 ChatGPT 独立审查。
 
 ## 4. 停止门禁
 
