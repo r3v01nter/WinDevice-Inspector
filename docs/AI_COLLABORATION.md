@@ -1,96 +1,63 @@
 # AI Collaboration and Delivery Workflow
 
-The Chinese [任务中心](任务中心/README.md) is the user-facing entry point. The operational file-transfer and Antigravity procedure is defined in [AI 交付操作手册](AI_交付操作手册.md).
+The repository-wide entry point is [AI_AGENT_GUIDE.md](../AI_AGENT_GUIDE.md). The Chinese [任务中心](任务中心/README.md) tracks tasks; [工作流规范](工作流/README.md) defines execution; [交付中心](../DELIVERY/README.md) manages submissions, reviews, and archives.
 
 ## 1. Roles and accountability
 
 ### Project owner
-- Makes product, scope, and final acceptance decisions.
-- Gives Gemini the standalone task brief and downloads its complete output.
-- Places downloaded files/ZIPs into the local ignored staging directory `DELIVERY/LOCAL_STAGING/待上传/`.
-- Starts Antigravity to validate, package, commit, and push the delivery branch.
-- Explicitly tells ChatGPT when to review or continue. The owner no longer needs to manually unzip, copy, commit, or upload files.
+- Approves task scope and authorizes execution.
+- Reviews delivery metadata and explicitly triggers ChatGPT review.
+- Makes final acceptance decisions.
+- Provides any local inputs or permissions that the tools cannot access themselves.
 
-### Gemini web / Gemini App — primary code producer
-- Uses the strongest model available in the user's Gemini web/App subscription (for example, Neon / Hydrogen when available).
-- Produces core implementation, complex modules, tests, refactors, and technical explanations.
-- Returns complete files or a ZIP preserving the required relative paths, plus a truthful completion receipt.
-- Does not directly commit or push this repository. Its output is downloaded by the owner and passed through local staging.
+### Gemini web / Gemini App — planning and task briefs
+- Reads the public repository guidance and relevant current task records.
+- Clarifies requirements, performs research, compares approaches, and creates self-contained task briefs or rework briefs.
+- Does not assume access to Antigravity's local working tree, terminal, or Git credentials.
+- Does not concurrently modify the same implementation workspace while Antigravity is implementing a task.
 
-### Antigravity — local integration and delivery operator
-- Uses the local repository clone and reads the current task brief plus [AI 交付操作手册](AI_交付操作手册.md).
-- Validates downloaded inputs, checks paths and conflicts, safely extracts packages, applies files to the task-authorized paths, runs available build/tests, and captures logs.
-- Creates and pushes a task/round-specific delivery branch, then reports the branch, commit SHA, file manifest, and test evidence.
-- Must not push to `main`, force-push, merge a PR, change scope, or invent architecture decisions.
-- Does not replace the stronger Gemini model as the primary producer of complex code.
+### Antigravity + Gemini 4 Hydrogen Extra High — independent implementation
+- Reads AI_AGENT_GUIDE.md, workflow rules, task center, and the authorized task brief.
+- Verifies actual model availability, repository/workspace access, terminal, Git permissions, and test environment before work.
+- Independently implements only the authorized scope, runs available tests, and creates a complete ZIP, completion receipt, file manifest, and SHA-256.
+- Uses a task/round-specific branch and the single delivery inbox when remote Git operations are available.
+- Must not push main, force-push, rewrite history, merge a PR, expand scope, or self-approve.
+- If Hydrogen Extra High or any required capability is unavailable, reports the limitation and waits for the owner's decision; no silent model substitution.
 
-### ChatGPT — project lead and independent reviewer
-- Inspects relevant repository state and prepares self-contained task briefs.
-- Coordinates architecture and product decisions, reviews code and evidence, requests corrections, and maintains task/review/archive records.
-- Only starts the next review/progression step after the project owner explicitly asks in chat.
-- Does not treat an Antigravity push as acceptance.
+### ChatGPT GPT-6 — independent reviewer and archive maintainer
+- Reviews the exact branch/commit and actual files after the owner explicitly triggers review.
+- Checks implementation, task compliance, privacy/security, tests, and evidence independently.
+- Produces review reports and precise rework requirements.
+- After review processing, preserves original delivery, archives the report, updates indexes, and clears processed inbox contents while retaining README placeholders.
+- Does not treat a push or producer self-assessment as acceptance.
 
-## 2. Task brief as a standalone work package
+## 2. Task brief requirements
 
-Every task brief must be independently understandable and include:
-- Stable task ID, title, round, status, owner, producer, and baseline commit.
-- Concise project background and verified current state.
-- Approved constraints, exact objectives, non-goals, and allowed file scope.
-- Relevant paths, ordered steps, acceptance criteria, tests, expected evidence, and delivery format.
-- Risks, unresolved decisions, and stop conditions.
+Every task brief must include stable task ID and round, baseline SHA, objectives and non-goals, authorized file scope, constraints, ordered steps, acceptance criteria, test commands, delivery format, branch name, evidence requirements, and stop conditions. Use [任务书模板](templates/任务书模板.md).
 
-Links provide traceability; essential execution context belongs in the task brief. Use [任务书模板](templates/任务书模板.md).
+## 3. Capability and access limits
 
-## 3. Repository access and execution limits
-
-- Gemini web/App produces complete files; do not assume it can access the local working tree.
-- Antigravity is the local file/Git operator. It must verify the repository root and task baseline before acting.
-- Public repository read access does not prove that a model can run Windows builds or tests.
-- Mark unrun commands/tests as **Not run**, not Passed.
-- If the baseline changed or a necessary input is unavailable, stop and report rather than guessing.
+- A public repository link provides read context only; it does not prove write access, local filesystem access, terminal access, or Windows test capability.
+- Antigravity records each capability as Available / Unavailable / Unverified in [能力核验清单](工作流/能力核验清单.md).
+- Tests not actually executed must be marked Not run, never Passed.
+- If baseline changes, permissions are missing, or requirements conflict, stop and report instead of guessing.
 
 ## 4. Standard task cycle
 
-1. ChatGPT writes and publishes a bounded, self-contained task brief.
-2. The owner downloads/reviews the brief and gives it to Gemini web/App.
-3. Gemini produces complete files/ZIP and a truthful completion receipt.
-4. The owner downloads the output into local `DELIVERY/LOCAL_STAGING/待上传/`.
-5. Antigravity reads the task brief and [AI 交付操作手册](AI_交付操作手册.md), validates the staging inputs, applies only authorized files, and performs available checks.
-6. Antigravity creates a branch such as `delivery/TASK-0001-R2`, commits and pushes it, and reports its SHA and URL. It never pushes `main` or merges.
-7. The owner explicitly tells ChatGPT that the branch is ready and asks for review/next step.
-8. ChatGPT fetches that exact branch and independently reviews every changed file against the task and evidence.
-9. If changes are required, ChatGPT records precise findings and a new revision round is produced on a new branch. Prior delivery branches and commits are preserved.
-10. After applicable review, local verification, and owner approval gates, ChatGPT may prepare the next task or perform the explicitly requested repository follow-up. No automatic phase transition occurs.
+1. Gemini web analyzes the request and repository context, then writes or updates a standalone task brief.
+2. The owner reviews and explicitly authorizes the task.
+3. Antigravity reads the brief and workflow rules, verifies capabilities, and independently implements the scope.
+4. Antigravity performs available checks, packages the complete output as one ZIP, and writes a truthful completion receipt and SHA-256.
+5. Antigravity submits to a dedicated delivery branch and DELIVERY/INBOX/待交付/ when possible. If remote write capability is unavailable, it reports that and provides the local package; it must not claim a push occurred.
+6. The owner verifies the branch/commit or package and explicitly asks ChatGPT to review.
+7. ChatGPT independently reviews the exact submission. If changes are needed, it records findings; Gemini web prepares the next rework brief; the owner authorizes the next round.
+8. After review, ChatGPT archives the original delivery and review report, updates task/review/archive indexes, and clears only the processed inbox contents.
+9. Final acceptance and task closure require the owner's explicit decision.
 
-## 5. Required Antigravity delivery receipt
+## 5. Required completion receipt
 
-- Task ID, round, baseline SHA, branch name, and commit SHA.
-- Gemini input file list and hashes when available.
-- Repository changed-file list and destination paths.
-- ZIP/path safety and conflict-check results.
-- Actual commands, environment, exit codes, and build/test results.
-- Remote branch URL and PR URL if created.
-- Unprocessed files, risks, deviations, and unverified items.
-- Explicit confirmation that `main` was not pushed, no PR was merged, and no historical delivery was overwritten.
+Task ID and round; model actually used; baseline SHA; branch and commit SHA if pushed; ZIP SHA-256; file manifest; repository changes; actual commands and exit codes; test results; unrun tests and reasons; deviations, risks, and known limitations; confirmation that main was not pushed and no PR was merged.
 
-## 6. Delivery and history rules
+## 6. Status separation
 
-- Local staging is `DELIVERY/LOCAL_STAGING/待上传/` and is Git-ignored.
-- The repository delivery inbox remains the single flat location: `DELIVERY/INBOX/待交付/`.
-- Each task/round uses a separate delivery branch; do not overwrite a prior round.
-- Preserve original files and manifests. Never commit credentials, browser data, private keys, real scan exports, or personal files.
-- Code changes stay on the delivery branch until independent review and explicit follow-up.
-- “Pushed” means uploaded to a branch, not reviewed, accepted, or merged.
-
-## 7. Manual trigger and acceptance gates
-
-Antigravity pushing a branch does not automatically trigger ChatGPT. The owner must explicitly say, for example, “TASK-0001 R2 已上传，请检查交付分支” or “继续下一步”.
-
-Keep these concepts separate:
-- Production completed: producer reports finished.
-- Branch pushed: files are present on a remote branch.
-- Independent review passed: ChatGPT checked the actual branch contents.
-- Local verification passed: actual build/runtime/test evidence exists.
-- Final acceptance: the owner explicitly approves.
-
-The current task pointer, task index, and review index must remain consistent. See [任务创建与推进规范](任务中心/任务创建与推进规范.md).
+Production complete, branch pushed, independent review passed, local verification passed, owner accepted, and archived are distinct states. Never conflate them.
