@@ -26,7 +26,7 @@
 
 ## 当前阶段
 
-- WDI-AUDIT-0001：R3 独立审查通过，项目负责人已验收，任务关闭。
+- WDI-AUDIT-0001：R3 独立审查通过，项目负责人已验收，任务关闭。\n- WDI-DIAG-001：独立 Windows 诊断采集工具；R1 需返修，R2 返修任务书已存在，默认由 Antigravity + Gemini 4 Hydrogen Extra High 实施。
 - TASK-0001：阶段 A R2 等待 Gemini 网页端产出；项目负责人下载到本地暂存区后，由 Antigravity 整理并推送交付分支；项目负责人明确触发 ChatGPT 后才开始独立审查。C-02 和 .sln 位置仍待负责人批准，阶段 B 未授权。
 
 ## 四方分工
