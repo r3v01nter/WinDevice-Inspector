@@ -10,6 +10,7 @@ This directory preserves original delivery batches by task and round, including 
 - [WDI-AUDIT-0001 R2](WDI-AUDIT-0001/R2/): rework required for R3.
 - [WDI-AUDIT-0001 R3](WDI-AUDIT-0001/R3/): review passed; owner accepted.
 - [TASK-0001 Phase A R1](TASK-0001/R1/): original architecture submission; review required revision; Phase B remains unauthorized.
+- [TASK-0001 Phase A R2](TASK-0001/R2/): R2 architecture proposal reviewed; revision required; Phase B remains unauthorized.
 - [WDI-DIAG-001 R1](WDI-DIAG-001/R1/): independent collector submission; review requires rework; Windows 11 validation not run.
 
 ## Rules
