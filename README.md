@@ -4,7 +4,7 @@
 
 WinDevice Inspector is a Windows desktop application project focused on one-click, comprehensive collection of Windows-recognized devices, hardware state, interfaces, drivers, supported sensor/health data, and operating-system reliability evidence. It preserves collection gaps and raw evidence, then exports JSON, XLSX, HTML, and AI analysis instructions as a report package.
 
-> **Project stage:** repository foundation and project-management workflow established. The Chinese task center is the project-management entry point. WDI-AUDIT-0001 R3 has passed independent review, been accepted by the owner, and is closed. TASK-0001 Phase A R2 architecture revision is awaiting Gemini web/App production. Antigravity will upload the package on a dedicated delivery branch; ChatGPT review starts only when the owner explicitly asks. Phase B coding is not authorized until the owner approves C-02. No application implementation has been accepted yet.
+> **Project stage:** repository foundation and project-management workflow established. The Chinese task center is the project-management entry point. WDI-AUDIT-0001 R3 has passed independent review, been accepted by the owner, and is closed. WDI-DIAG-001 R1 requires rework; its R2 brief is ready for Antigravity + Gemini 4 Hydrogen Extra High. TASK-0001 Phase A R2 architecture revision is awaiting Gemini web/App production. Antigravity will upload the package on a dedicated delivery branch; ChatGPT review starts only when the owner explicitly asks. Phase B coding is not authorized until the owner approves C-02. No application implementation has been accepted yet.
 
 ## Project management — start here
 
@@ -15,7 +15,7 @@ WinDevice Inspector is a Windows desktop application project focused on one-clic
 - **[任务中心](docs/任务中心/README.md)** — main project-management entry point.
 - **[完整设备诊断与报告导出需求](docs/完整设备诊断与报告导出需求.md)** — confirmed product scope and report-package requirements.
 - [当前任务](docs/任务中心/当前任务.md) — the single current work pointer.
-- [TASK-0001 正式实现任务书](docs/tasks/TASK-0001_正式实现任务书.md) — current standalone task brief; Phase A proposal only is authorized.
+- [WDI-DIAG-001 R2 返修任务书](docs/tasks/WDI-DIAG-001_R2_返修任务书.md) — independent Windows diagnostic collector revision; Antigravity + Gemini 4 Hydrogen Extra High is the default implementer.\n- [TASK-0001 正式实现任务书](docs/tasks/TASK-0001_正式实现任务书.md) — current standalone task brief; Phase A proposal only is authorized.
 - [TASK-0001 开工准备与决策确认书](docs/tasks/TASK-0001_开工准备与决策确认书.md) — historical record of the owner's four decisions.
 - [任务创建与推进规范](docs/任务中心/任务创建与推进规范.md) — reusable rules for task creation, standalone briefs, progress, review, and archiving.
 - [任务索引](docs/任务中心/任务索引.md) — task status and direct links to briefs and delivery records.
